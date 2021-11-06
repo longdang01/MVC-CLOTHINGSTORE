@@ -1,0 +1,11 @@
+F:\project_clothes\project_clothes_app\project_clothes_bus\bin\Debug\project_clothes_bus.dll
+F:\project_clothes\project_clothes_app\project_clothes_bus\bin\Debug\project_clothes_bus.pdb
+F:\project_clothes\project_clothes_app\project_clothes_bus\bin\Debug\project_clothes_dao.dll
+F:\project_clothes\project_clothes_app\project_clothes_bus\bin\Debug\project_clothes_object.dll
+F:\project_clothes\project_clothes_app\project_clothes_bus\bin\Debug\project_clothes_dao.pdb
+F:\project_clothes\project_clothes_app\project_clothes_bus\bin\Debug\project_clothes_object.pdb
+F:\project_clothes\project_clothes_app\project_clothes_bus\obj\Debug\project_clothes_bus.csproj.AssemblyReference.cache
+F:\project_clothes\project_clothes_app\project_clothes_bus\obj\Debug\project_clothes_bus.csproj.CoreCompileInputs.cache
+F:\project_clothes\project_clothes_app\project_clothes_bus\obj\Debug\project_clothes_bus.csproj.CopyComplete
+F:\project_clothes\project_clothes_app\project_clothes_bus\obj\Debug\project_clothes_bus.dll
+F:\project_clothes\project_clothes_app\project_clothes_bus\obj\Debug\project_clothes_bus.pdb

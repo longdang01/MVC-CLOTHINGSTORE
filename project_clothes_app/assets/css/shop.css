@@ -1,0 +1,354 @@
+.shop-wrap,
+.product-detail-wrap {
+    margin-top: 70px;
+    min-height: 100vh;
+}
+
+.shop-breadcrumb {
+    background: #2c2c2c;
+    color: #6c757d;
+    height: 40px;
+    line-height: 40px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding: 0 8rem;
+}
+
+.shop-breadcrumb nav {
+    height: 40px;
+}
+
+.breadcrumb-item.active {
+    color: #fff;
+}
+
+.shop-main {
+    display: grid;
+    grid-template-columns: 1fr 11fr;
+    gap: 20px;
+    min-height: 100vh;
+    padding: 0 8rem;
+}
+
+.shop-search {
+    padding: 1rem;
+    border: 1px solid black;
+    margin-bottom: 3rem;
+    font-size: 1.4rem;
+}
+
+.shop-product-wrap {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    width: 880px;
+}
+
+.shop-product-wrap .product-carousel-img {
+    width: 293px;
+}
+
+.shop-filter {
+    width: 270px;
+}
+
+.filter-item-name {
+    position: relative;
+    font-size: 1.4rem;
+    text-transform: uppercase;
+    margin-bottom: 4rem;
+}
+
+.filter-item-name::after {
+    content: '';
+    position: absolute;
+    top: 150%;
+    left: 0;
+    min-width: 50px;
+    height: 5px;
+    background: black;
+} 
+
+.btn-filter-price,
+.btn-filter-brand {
+    font-size: 1.4rem;
+    padding: .5rem 2rem;
+    background: #fff;
+    border: 2px solid black;
+    color: black;
+    transition: .5s;
+}
+
+.btn-filter-price:hover,
+.btn-filter-brand:hover {
+    color: #fff;
+    background: var(--primaryColor);
+    border: 2px solid transparent;
+}
+
+.filter-color-type {
+    display: block;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: red;
+    transition: transform .5s;
+}
+
+.filter-color-item {
+    margin-bottom: 1.5rem;
+}
+
+.filter-color-item:hover {
+    cursor: pointer;
+}
+
+.filter-color-item:hover .filter-color-type {
+    transform: scale(1.3);
+}
+
+.filter-size-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    width: 30px;
+    height: 30px;
+    border: 1px solid #d6d6d6;
+    margin-right: 1.5rem;
+    margin-bottom: 1.5rem;
+    transition: .5s;
+}
+
+.filter-brand-item {
+    margin-bottom: 1rem;
+}
+
+.filter-size-item:hover {
+    background: var(--primaryColor);
+    color: #fff;
+}
+
+.lbl-brand {
+    padding-left: 1rem;
+    flex: 2;
+}
+
+.shop-brand-img {
+    width: 310px;
+    height: 280px;
+    object-fit: cover;
+    transition: transform 1s;
+}
+
+.shop-brand {
+    position: relative;
+    overflow: hidden;
+}
+
+.shop-brand:hover .overlay,
+.shop-brand:hover .shop-brand-img {
+    transform: scale(1.2);
+    background: rgba(0, 0, 0, .3);
+}
+
+.shop-brand-name {
+    display: block;
+    padding: 1rem;
+    background: black;
+    color: #fff;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.shop-socials {
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+}
+
+.shop-socials li:not(:last-child) {
+    margin-bottom: 1rem;
+}
+
+.shop-socials a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    background: #fff;
+    color: black;
+    transition: .5s;
+}
+
+.shop-socials li:hover a {
+    background: var(--primaryColor);
+    color: #fff;
+}
+
+.product-detail-img {
+    width: 100%;
+    object-fit: cover;
+}
+
+.detail-img-wrap {
+
+}
+
+.detail-img-sub {
+    border: 2px solid black;
+}
+
+.detail-img-sub-wrap a {
+    position: relative;
+    display: block;
+    overflow: hidden;
+}
+
+.detail-img-sub-wrap a:hover .overlay {
+    transition: .5s;
+    background: rgba(0, 0, 0, .5);
+}
+
+.detail-img-sub-wrap a:hover img {
+    transform: scale(1.1);
+    transition: transform .5s;
+}
+
+.detail-img-main {
+    height: calc(100vh - 70px);
+}
+
+.product-detail-content {
+    padding: 3.5rem 5rem;
+}
+
+.product-detail-name {
+    font-size: 3rem;
+}
+
+.stocking {
+    color: #00b600;
+}
+
+.product-detail-color {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: red;
+    border: 1px solid #d6d6d6;
+}
+
+.product-detail-size,
+.product-detail-color {
+    margin-right: 1rem;
+}
+
+
+.product-detail-size,
+.product-detail-amount,
+.product-amount-sub,
+.product-amount-plus {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 40px;
+    height: 40px;
+    border: 1px solid grey;
+    outline: none;
+    cursor: pointer;
+}
+
+.product-detail-amount {
+    border-left: 0;
+    border-right: 0;
+    cursor: default;
+}
+
+.product-detail-size:hover {
+    transition: .5s;
+    color: #fff;
+    border: 1px solid transparent;
+    background: var(--primaryColor);
+}
+
+.product-detail-lbl {
+    width: 120px;
+}
+
+.product-detail-description {
+    font-size: 1.5rem;
+}
+
+.btn-dark {
+    padding: 1rem;
+    font-size: 1.5rem;
+}
+
+.label-detail {
+    position: relative;
+    display: inline-block;
+    background: black;
+    color: #fff;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 1rem 3rem;
+    margin-bottom: 2rem;
+}
+
+.label-detail::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: -22px;
+    width: 0;
+	height: 0;
+	border-top: 22px solid transparent;
+	border-left: 22px solid black;
+	border-bottom: 22px solid transparent;
+}
+
+.product-related .product-carousel-img {
+    width: 100%;
+}
+
+.vertical-slider-container,
+.lSSlideOuter.vertical,
+.lSSlideWrapper.usingCss {
+    width: 100%;
+    height: 555px !important;
+    overflow: hidden;
+    padding-right: 0 !important;
+}
+
+#vertical-slider img,
+#vertical-slider li {
+    width: 450px;
+    height: 555px !important;
+    object-fit: cover;
+    margin-left: auto;
+    object-position: center;
+}
+
+.lSSlideOuter.vertical {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.lSPager.lSGallery {
+    width: 133px !important;
+    height: 555px !important;
+}
+
+.lSPager.lSGallery li,
+.lSPager.lSGallery a,
+.lSPager.lSGallery img {
+    width: 135px !important;
+    height: 181px !important;
+    object-fit: cover;
+}
+

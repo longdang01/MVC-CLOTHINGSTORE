@@ -1,0 +1,99 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="shop-wrap">
+    <div class="shop-breadcrumb">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Shop</li>
+            </ol>
+        </nav>
+    </div>
+    <div class="shop-main">
+        <div class="shop-filter">
+            <div class="shop-search d-flex justify-content-between
+                    align-items-center">
+                <input style="flex:2; border: none; outline: none;"
+                       type="text" placeholder="Tìm kiếm sản phẩm">
+                <a href="#" class="btn-shop-search"><i class="ti-search"></i></a>
+            </div>
+            <div>
+                <div class="shop-filter-item mb-5">
+                    <h3 class="filter-item-name fw-bold">Categories</h3>
+
+                </div>
+                <div class="shop-filter-item mb-5">
+                    <h3 class="filter-item-name fw-bold">Giá</h3>
+                    @* Pass *@
+                </div>
+                <div class="shop-filter-item mb-5">
+                    <h3 class="filter-item-name fw-bold">Màu sắc</h3>
+                    @* Pass *@
+                </div>
+                <div class="shop-filter-item mb-5">
+                    <h3 class="filter-item-name fw-bold">Size</h3>
+                    <div class="filter-size d-flex align-items-center flex-wrap">
+                        <a href="#" class="filter-size-item">XXL</a>
+                        <a href="#" class="filter-size-item">XL</a>
+                        <a href="#" class="filter-size-item">L</a>
+                        <a href="#" class="filter-size-item">M</a>
+                        <a href="#" class="filter-size-item">S</a>
+                        <a href="#" class="filter-size-item">XS</a>
+                    </div>
+                </div>
+                
+                <div class="shop-filter-item mb-5">
+                    <h3 class="shop-brand-name fw-bold text-uppercase fs-4">Theo dõi chúng tôi</h3>
+                    <div class="shop-brand">
+                        <img src="~/assets/images/letter.jpg" class="shop-brand-img" alt="">
+                        <div class="overlay"></div>
+                        <ul class="shop-socials">
+                            <li><a href="#"><i class="ti-facebook"></i></a></li>
+                            <li><a href="#"><i class="ti-instagram"></i></a></li>
+                            <li><a href="#"><i class="fab fa-tiktok"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="shop-products">
+            <div style="height: 46px; margin-bottom: 3rem;" class="d-flex align-items-center justify-content-between">
+                <span>Showing 1–12 of 16 results</span>
+                <div>
+                    <span>Lọc: </span>
+                    <select name="sort" id="sort-product">
+                        <option value="">Mặc định</option>
+                        <option value="">Giá tăng dần</option>
+                        <option value="">Giá giảm dần</option>
+                    </select>
+                </div>
+            </div>
+            <div ng-controller="product_controller" class="shop-product-wrap">
+                <div ng-repeat="product in Products" class="product-carousel-item position-relative item">
+                    <div class="product-img-wrap position-relative overflow-hidden">
+                        <a href="/ProductDetail/Index" class="product-img" ng-click="ViewDetail(product)">
+                            <img class="product-carousel-img" ng-src="../{{ product.images[0] }}" alt="">
+                            <div class="overlay"></div>
+                        </a>
+
+                        <ul class="product-options d-flex align-items-center">
+                            <li><a href="#"><i class="ti-shopping-cart"></i></a></li>
+                            <li><a href="#"><i class="ti-zoom-in"></i></a></li>
+                            <li><a href="#"><i class="ti-heart"></i></a></li>
+                        </ul>
+                    </div>
+                    <div class="product-info">
+                        <a href="/ProductDetail/Index" class="product-name d-block mb-1 fw-bold">
+                            {{ product.product_name }}
+                        </a>
+                        <span class="product-price">{{ product.price_current | currency:"":0}}đ</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

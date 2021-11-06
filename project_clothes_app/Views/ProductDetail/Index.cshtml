@@ -1,0 +1,166 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="product-detail-wrap" ng-controller="product_detail_controller">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 p-0">
+                <div class="vertical-slider-container">
+                    <ul id="vertical-slider">
+                        <li  ng-repeat="image in Product.images" data-thumb="../{{ image }}">
+                            <img src="../{{ image }}" />
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="product-detail-content col-md-6">
+                <h3 class="product-detail-name">{{ Product.product_name }}</h3>
+                <h3 class="product-detail-price">{{ Product.price_current | currency: "" : 0}}đ</h3>
+                <div class="my-5">
+                    <div>
+                        <span class="d-inline-block
+                                product-detail-lbl">Tình trạng:</span><span class="stocking">Còn hàng</span>
+                    </div>
+                    <div>
+                        <span class="d-inline-block
+                                product-detail-lbl">Mã sản phẩm:</span><span>{{ Product.product_code }}</span>
+                    </div>
+                </div>
+                <ul>
+                    <li class="d-flex align-items-center mb-4">
+                        <span class="product-detail-lbl">Màu sắc:</span>
+                        <ul ng-repeat="color in Product.colors" class="d-flex align-items-center">
+                            <li class="d-flex align-items-center">
+                                <a href="#" style="background: {{ color }}" class="product-detail-color"></a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="d-flex align-items-center mb-4">
+                        <span class="product-detail-lbl">Size:</span>
+                        <ul ng-repeat="size in Product.sizes" class="d-flex align-items-center">
+                            <li><a href="#" class="product-detail-size">{{ size }}</a></li>
+                        </ul>
+                    </li>
+                    <li class="d-flex align-items-center mb-4">
+                        <span class="product-detail-lbl">Số lượng</span>
+                        <div class="d-flex align-items-center">
+                            <input type="text" class="product-amount-sub" value="-" readonly>
+                            <input type="text" class="product-detail-amount" value="1" readonly>
+                            <input type="text" class="product-amount-plus" value="+" readonly>
+
+                        </div>
+                    </li>
+                </ul>
+                <div class="my-5">
+                    <button class="btn btn-dark btn-add-to-card">Thêm vào giỏ hàng</button>
+                    <button class="btn btn-dark btn-buy-now">Mua ngay</button>
+                </div>
+                <div>
+                    <a href="#"><i class="ti-heart"></i></a>
+                    <span>Thêm vào mục yêu thích</span>
+                </div>
+            </div>
+        </div>
+
+        <div style="margin: 10rem 0">
+            <span class="label-detail">Mô tả sản phẩm</span>
+            <p class="product-detail-description">
+                {{ Product.description }}
+            </p>
+        </div>
+
+        <div>
+            <div class="product-related my-5">
+                <span class="label-detail">Sản phẩm liên quan</span>
+                <div class="product-related">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="product-carousel-item position-relative item">
+                                <div class="product-img-wrap position-relative overflow-hidden">
+                                    <a href="#" class="product-img">
+                                        <img class="product-carousel-img" src="~/assets/images/PR001_TOP_1.jpg" alt="">
+                                        <div class="overlay"></div>
+                                    </a>
+
+                                    <ul class="product-options d-flex align-items-center">
+                                        <li><a href="#"><i class="ti-shopping-cart"></i></a></li>
+                                        <li><a href="#"><i class="ti-zoom-in"></i></a></li>
+                                        <li><a href="#"><i class="ti-heart"></i></a></li>
+                                    </ul>
+                                </div>
+                                <div class="product-info">
+                                    <a href="#" class="product-name d-block mb-1 fw-bold">Áo Chovis</a>
+                                    <span class="product-price">280,000đ</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="product-carousel-item position-relative item">
+                                <div class="product-img-wrap position-relative overflow-hidden">
+                                    <a href="#" class="product-img">
+                                        <img class="product-carousel-img" src="~/assets/images/PR001_TOP_1.jpg" alt="">
+                                        <div class="overlay"></div>
+                                    </a>
+
+                                    <ul class="product-options d-flex align-items-center">
+                                        <li><a href="#"><i class="ti-shopping-cart"></i></a></li>
+                                        <li><a href="#"><i class="ti-zoom-in"></i></a></li>
+                                        <li><a href="#"><i class="ti-heart"></i></a></li>
+                                    </ul>
+                                </div>
+                                <div class="product-info">
+                                    <a href="#" class="product-name d-block mb-1 fw-bold">Áo Chovis</a>
+                                    <span class="product-price">280,000đ</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="product-carousel-item position-relative item">
+                                <div class="product-img-wrap position-relative overflow-hidden">
+                                    <a href="#" class="product-img">
+                                        <img class="product-carousel-img" src="~/assets/images/PR001_TOP_1.jpg" alt="">
+                                        <div class="overlay"></div>
+                                    </a>
+
+                                    <ul class="product-options d-flex align-items-center">
+                                        <li><a href="#"><i class="ti-shopping-cart"></i></a></li>
+                                        <li><a href="#"><i class="ti-zoom-in"></i></a></li>
+                                        <li><a href="#"><i class="ti-heart"></i></a></li>
+                                    </ul>
+                                </div>
+                                <div class="product-info">
+                                    <a href="#" class="product-name d-block mb-1 fw-bold">Áo Chovis</a>
+                                    <span class="product-price">280,000đ</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="product-carousel-item position-relative item">
+                                <div class="product-img-wrap position-relative overflow-hidden">
+                                    <a href="#" class="product-img">
+                                        <img class="product-carousel-img" src="~/assets/images/PR001_TOP_1.jpg" alt="">
+                                        <div class="overlay"></div>
+                                    </a>
+
+                                    <ul class="product-options d-flex align-items-center">
+                                        <li><a href="#"><i class="ti-shopping-cart"></i></a></li>
+                                        <li><a href="#"><i class="ti-zoom-in"></i></a></li>
+                                        <li><a href="#"><i class="ti-heart"></i></a></li>
+                                    </ul>
+                                </div>
+                                <div class="product-info">
+                                    <a href="#" class="product-name d-block mb-1 fw-bold">Áo Chovis</a>
+                                    <span class="product-price">280,000đ</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

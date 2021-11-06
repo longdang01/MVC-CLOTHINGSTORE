@@ -1,0 +1,17 @@
+F:\project_clothes\project_clothes_app\project_clothes_dao\bin\Debug\project_clothes_dao.dll
+F:\project_clothes\project_clothes_app\project_clothes_dao\bin\Debug\project_clothes_dao.pdb
+F:\project_clothes\project_clothes_app\project_clothes_dao\bin\Debug\project_clothes_object.dll
+F:\project_clothes\project_clothes_app\project_clothes_dao\bin\Debug\System.Configuration.ConfigurationManager.dll
+F:\project_clothes\project_clothes_app\project_clothes_dao\bin\Debug\System.Security.AccessControl.dll
+F:\project_clothes\project_clothes_app\project_clothes_dao\bin\Debug\System.Security.Permissions.dll
+F:\project_clothes\project_clothes_app\project_clothes_dao\bin\Debug\System.Security.Principal.Windows.dll
+F:\project_clothes\project_clothes_app\project_clothes_dao\bin\Debug\project_clothes_object.pdb
+F:\project_clothes\project_clothes_app\project_clothes_dao\bin\Debug\System.Configuration.ConfigurationManager.xml
+F:\project_clothes\project_clothes_app\project_clothes_dao\bin\Debug\System.Security.AccessControl.xml
+F:\project_clothes\project_clothes_app\project_clothes_dao\bin\Debug\System.Security.Permissions.xml
+F:\project_clothes\project_clothes_app\project_clothes_dao\bin\Debug\System.Security.Principal.Windows.xml
+F:\project_clothes\project_clothes_app\project_clothes_dao\obj\Debug\project_clothes_dao.csproj.AssemblyReference.cache
+F:\project_clothes\project_clothes_app\project_clothes_dao\obj\Debug\project_clothes_dao.csproj.CoreCompileInputs.cache
+F:\project_clothes\project_clothes_app\project_clothes_dao\obj\Debug\project_clothes_dao.csproj.CopyComplete
+F:\project_clothes\project_clothes_app\project_clothes_dao\obj\Debug\project_clothes_dao.dll
+F:\project_clothes\project_clothes_app\project_clothes_dao\obj\Debug\project_clothes_dao.pdb
