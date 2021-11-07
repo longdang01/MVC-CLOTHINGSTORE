@@ -9,7 +9,7 @@ app.controller('product_controller', function ($rootScope, $scope, $http) {
     $rootScope.max_size = 3;
     $rootScope.total_count= 0;
     $rootScope.page_index = 1;
-    $rootScope.page_size = 8; //number of items per page
+    $rootScope.page_size = 5; //number of items per page
     $rootScope.search_name = '';
     $rootScope.category_id = '';
 
@@ -21,39 +21,44 @@ app.controller('product_controller', function ($rootScope, $scope, $http) {
         }
     }
     $scope.getCategoryId();
-    
-    $http(
-        {
-            method: 'GET',
-            url: '/Shop/getProductList',
-            params: {
-                category_id: category_id, page_index: $rootScope.page_index,
-                page_size: $rootScope.page_size, product_name: $rootScope.search_name
-            }
+    if (category_id) {
+        $scope.getProductList = function (index) {
+            const urlPage = '/Shop/getProductList';
+            $http(
+                {
+                    method: 'GET',
+                    url: '/Shop/getProductList',
+                    params: {
+                        category_id: category_id, page_index: index,
+                        page_size: $rootScope.page_size, product_name: $rootScope.search_name
+                    }
+                }
+            ).then(function success(d) {
+                $scope.ListProduct = d.data;
+                $rootScope.total_count = $scope.ListProduct.total_count;
+            }, function error() {
+                alert('FAILED');
+            })
         }
-    ).then(function success(d) {
-        $scope.ListProduct = d.data;
-        $rootScope.total_count = $scope.ListProduct.total_count;
-    }, function error() {
-
-        alert('FAILED');
-    })
-
-    $scope.selectCategory = function (category) {
-        localstorage.setItem('category_id', category.category_id);
-        $scope.getCategoryId();
-    }
-
-    $http(
+        $scope.getProductList($rootScope.page_index);
+    } else {
+        $http(
         {
             method: 'GET',
             url: '/Shop/getProducts'
         }
-    ).then(function success(d) {
-        $scope.Products = d.data.products;
-    }, function error() {
-        alert('FAILED')
-    })
+        ).then(function success(d) {
+            $scope.Products = d.data.products;
+        }, function error() {
+            alert('FAILED')
+        })
+    }
+
+    
+
+    $scope.selectCategory = function (category) {
+        localstorage.setItem('category_id', category.category_id);
+    }
 
     $scope.ViewDetail = (product) => {
         if (product == null) {
