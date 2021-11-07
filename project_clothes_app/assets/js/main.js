@@ -36,7 +36,7 @@ $('.product-carousel').owlCarousel({
 
 $('.journal-carousel').owlCarousel({
     loop: true,
-    //margin: 20,
+    margin: 20,
     nav: true,
     items: 3,
     navText: ["<a href='javascript:void(0)' class='btn-slide'><i class='ti-angle-left'></i></a>",

@@ -23,5 +23,12 @@ namespace project_clothes_app.Controllers
 
             return Json(new { products = l }, JsonRequestBehavior.AllowGet);
         }
+        [HttpGet]
+        public JsonResult getProductList(string category_id, int page_index, int page_size, string product_name)
+        {
+            ProductList pl = productBUS.getProductList(category_id, page_index, page_size, product_name);
+
+            return Json(pl, JsonRequestBehavior.AllowGet);
+        }
     }
 }

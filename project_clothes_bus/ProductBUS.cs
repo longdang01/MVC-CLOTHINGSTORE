@@ -15,6 +15,10 @@ namespace project_clothes_bus
         {
             return productDAO.getProducts();
         }
+        public ProductList getProductList(string category_id, int page_index, int page_size, string product_name)
+        {
+            return productDAO.getProductList(category_id, page_index, page_size, product_name);
+        }
         public Product getProductDetail(string product_id)
         {
             return productDAO.getProductDetail(product_id);

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,6 +21,27 @@ namespace project_clothes_dao
             DataTable dt = dh.getDataTable(query);
 
             return ToList(dt);
+        }
+        public ProductList getProductList(string category_id, int page_index, int page_size, string product_name)
+        {
+            ProductList pl = new ProductList();
+            List<Product> l = new List<Product>();
+            SqlDataReader dr = dh.storeReaders("getProductList", category_id, page_index, page_size, product_name);
+             
+            while (dr.Read())
+            {
+                List<string> images = dr[1].ToString().Split(',').ToList();
+                Product p = new Product(Guid.Parse(dr[0].ToString()), images, dr[2].ToString()
+                    , Convert.ToDecimal(dr[3].ToString()));
+                l.Add(p);
+            }
+            pl.Products = l;
+            dr.NextResult();
+            while (dr.Read())
+            {
+                pl.total_count = int.Parse(dr["total_count"].ToString());
+            }
+            return pl;
         }
         public Product getProductDetail(string product_id)
         {

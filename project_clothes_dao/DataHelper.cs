@@ -39,17 +39,21 @@ namespace project_clothes_dao
             da.Fill(dt);
             return dt;
         }
-        public SqlDataReader StoreReaders(string getProduct, params object[] param)
+        public SqlDataReader storeReaders(string store_name, params object[] param)
         {
-            SqlCommand cm;
             Open();
+            SqlCommand cm;
             try
             {
-                cm = new SqlCommand(getProduct, con);
+                cm = new SqlCommand(store_name, con);
                 cm.CommandType = CommandType.StoredProcedure;
                 SqlCommandBuilder.DeriveParameters(cm);
-                for (int i = 0; i < cm.Parameters.Count; i++)
+                for (int i = 1; i < cm.Parameters.Count; i++)
                 {
+                    if (param[i - 1].ToString() == "00000000-0000-0000-0000-000000000000")
+                    {
+                        param[i - 1] = Guid.Empty;
+                    }
                     cm.Parameters[i].Value = param[i - 1];
                 }
                 SqlDataReader dr = cm.ExecuteReader();
@@ -57,6 +61,7 @@ namespace project_clothes_dao
             }
             catch (Exception e)
             {
+                Console.WriteLine(e.Message);
                 return null;
             }
         }

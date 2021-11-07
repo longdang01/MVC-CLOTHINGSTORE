@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -62,7 +61,7 @@
         </div>
         <div class="shop-products">
             <div style="height: 46px; margin-bottom: 3rem;" class="d-flex align-items-center justify-content-between">
-                <span>Showing 1–12 of 16 results</span>
+                <span>Showing 1–10 of 10 results</span>
                 <div>
                     <span>Lọc: </span>
                     <select name="sort" id="sort-product">
@@ -73,7 +72,9 @@
                 </div>
             </div>
             <div ng-controller="product_controller" class="shop-product-wrap">
-                <div ng-repeat="product in Products" class="product-carousel-item position-relative item">
+                @*<div ng-repeat="product in Products" class="product-carousel-item position-relative item">*@
+                <div dir-paginate="product in ListProduct.Products|itemsPerPage: page_size" total-items="total_count"
+                     class="product-carousel-item position-relative item">
                     <div class="product-img-wrap position-relative overflow-hidden">
                         <a href="/ProductDetail/Index" class="product-img" ng-click="ViewDetail(product)">
                             <img class="product-carousel-img" ng-src="../{{ product.images[0] }}" alt="">
@@ -93,6 +94,12 @@
                         <span class="product-price">{{ product.price_current | currency:"":0}}đ</span>
                     </div>
                 </div>
+
+                <dir-pagination-controls max-size="max_size"
+                                         direction-links="true"
+                                         boundary-links="true"
+                                         @*on-page-change="getCategoryId(newPageNumber)"*@>
+                </dir-pagination-controls>
             </div>
         </div>
     </div>
