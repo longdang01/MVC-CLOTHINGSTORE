@@ -9,45 +9,33 @@ namespace project_clothes_object
     public class Product
     {
         public Guid product_id { get; set; }
-        public Guid product_detail_id { get; set; }
         public string product_code { get; set; }
         public string product_name { get; set; }
         public string description { get; set; }
+        public string image_avt { get; set; }
+        public string brand { get; set; }
+        public string made_in { get; set; }
+        public string gender { get; set; }
+        public string status { get; set; }
         public Guid category_id { get; set; }
-        public string image { get; set; }
-        public List<string> images { get; set; }
-        public string color { get; set; }
-        public List<string> colors { get; set; }
-        public string size { get; set; }
-        public List<string> sizes { get; set; }
-        public int quantity { get; set; }
-        public decimal price_current { get; set; }
-        public DateTime date_effect { get; set; }
-        public DateTime date_expired { get; set; }
-
-        public Product(Guid product_id, List<string> images,
-            string product_name, decimal price_current)
-        {
-            this.product_id = product_id;
-            this.images = images;
-            this.product_name = product_name;
-            this.price_current = price_current;
-        }
-
-        public Product(Guid product_detail_id, Guid product_id, List<string> images,
-            string product_name, string description, decimal price_current, string product_code, 
-            List<string> colors,
-            List<string> sizes)
+        public List<ProductColor> list_color { get; set; }
+        public ProductPrice price { get; set; }
+        public Product(Guid product_id, string product_code, string product_name,
+            string description, string image_avt, string brand, string made_in, string gender, string status,
+            Guid category_id, List<ProductColor> list_color, ProductPrice price)
         { 
-            this.product_detail_id = product_detail_id;
             this.product_id = product_id;
-            this.images = images;
+            this.product_code = product_code;
             this.product_name = product_name;
             this.description = description;
-            this.price_current = price_current;
-            this.product_code = product_code;
-            this.colors = colors;
-            this.sizes = sizes;
+            this.image_avt = image_avt;
+            this.brand = brand;
+            this.made_in = made_in;
+            this.gender = gender;
+            this.status = status;
+            this.category_id = category_id;
+            this.list_color = list_color;
+            this.price = price;
         }
     }
 }

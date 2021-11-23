@@ -41,9 +41,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CategoryBUS.cs" />
+    <Compile Include="Interfaces\ICategoryBUS.cs" />
     <Compile Include="Interfaces\IProductBUS.cs" />
+    <Compile Include="Interfaces\ILoginBUS.cs" />
     <Compile Include="ProductBUS.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="LoginBUS.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\project_clothes_dao\project_clothes_dao.csproj">

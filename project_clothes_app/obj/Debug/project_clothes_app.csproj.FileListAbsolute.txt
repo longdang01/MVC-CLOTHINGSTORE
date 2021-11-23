@@ -99,3 +99,5 @@ F:\project_clothes\project_clothes_app\project_clothes_app\bin\System.Security.A
 F:\project_clothes\project_clothes_app\project_clothes_app\bin\System.Security.Permissions.xml
 F:\project_clothes\project_clothes_app\project_clothes_app\bin\System.Security.Principal.Windows.xml
 F:\project_clothes\project_clothes_app\project_clothes_app\bin\project_clothes_dao.pdb
+F:\project_clothes\project_clothes_app\project_clothes_app\obj\Debug\project_clothes_app.Properties.Resources.resources
+F:\project_clothes\project_clothes_app\project_clothes_app\obj\Debug\project_clothes_app.csproj.GenerateResource.cache

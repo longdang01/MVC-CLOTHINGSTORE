@@ -10,13 +10,13 @@ namespace project_clothes_app.Controllers
 {
     public class ProductDetailController : Controller
     {
-        public ProductBUS productBUS = new ProductBUS();
+        public IProductBUS productBUS = new ProductBUS();
         // GET: ProductDetail
         public ActionResult Index()
         {
             return View();
         }
-        public JsonResult getProductDetail(string product_id)
+        public JsonResult getProductDetail(Guid product_id)
         {
             Product p = productBUS.getProductDetail(product_id);
 

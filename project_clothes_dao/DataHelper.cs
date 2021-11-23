@@ -32,6 +32,20 @@ namespace project_clothes_dao
                 con.Close();
             }
         }
+        public void ExecuteNonQuery(string query)
+        {
+            try
+            {
+                Open();
+                SqlCommand cmd = new SqlCommand(query, con);
+                cmd.ExecuteNonQuery();
+                Close();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
         public DataTable getDataTable(string query)
         {
             DataTable dt = new DataTable();
@@ -46,14 +60,12 @@ namespace project_clothes_dao
             try
             {
                 cm = new SqlCommand(store_name, con);
+                
                 cm.CommandType = CommandType.StoredProcedure;
                 SqlCommandBuilder.DeriveParameters(cm);
                 for (int i = 1; i < cm.Parameters.Count; i++)
                 {
-                    if (param[i - 1].ToString() == "00000000-0000-0000-0000-000000000000")
-                    {
-                        param[i - 1] = Guid.Empty;
-                    }
+                    //if (i == 1) param[i - 1] = Guid.Parse(param[i - 1].ToString());
                     cm.Parameters[i].Value = param[i - 1];
                 }
                 SqlDataReader dr = cm.ExecuteReader();

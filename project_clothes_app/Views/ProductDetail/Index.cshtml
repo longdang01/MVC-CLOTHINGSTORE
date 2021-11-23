@@ -9,16 +9,19 @@
         <div class="row">
             <div class="col-md-6 p-0">
                 <div class="vertical-slider-container">
-                    <ul id="vertical-slider">
-                        <li  ng-repeat="image in Product.images" data-thumb="../{{ image }}">
-                            <img src="../{{ image }}" />
+                    <ul id="vertical-slider" >
+                        @*<li data-thumb="../{{ Product.image_avt }}">
+                            <img ng-src="../{{ Product.image_avt }}" />
+                        </li>*@
+                        <li ng-repeat="image in images"  data-thumb="../{{ image }}">
+                            <img ng-src="../{{ image }}"/>
                         </li>
                     </ul>
                 </div>
             </div>
             <div class="product-detail-content col-md-6">
                 <h3 class="product-detail-name">{{ Product.product_name }}</h3>
-                <h3 class="product-detail-price">{{ Product.price_current | currency: "" : 0}}đ</h3>
+                <h3 class="product-detail-price">{{ Product.price.price_current | currency: "" : 0}}đ</h3>
                 <div class="my-5">
                     <div>
                         <span class="d-inline-block
@@ -32,16 +35,18 @@
                 <ul>
                     <li class="d-flex align-items-center mb-4">
                         <span class="product-detail-lbl">Màu sắc:</span>
-                        <ul ng-repeat="color in Product.colors" class="d-flex align-items-center">
+                        <ul ng-repeat="color in colors.list_color" class="d-flex align-items-center">
                             <li class="d-flex align-items-center">
-                                <a href="#" style="background: {{ color }}" class="product-detail-color"></a>
+                                <a href="#" style="background: {{ color.hex }}" class="product-detail-color"></a>
                             </li>
                         </ul>
                     </li>
                     <li class="d-flex align-items-center mb-4">
                         <span class="product-detail-lbl">Size:</span>
-                        <ul ng-repeat="size in Product.sizes" class="d-flex align-items-center">
-                            <li><a href="#" class="product-detail-size">{{ size }}</a></li>
+                        <ul class="d-flex align-items-center">
+                            <li ng-repeat="size in sizes">
+                                <a href="#" class="product-detail-size">{{ size.size }}</a>
+                            </li>
                         </ul>
                     </li>
                     <li class="d-flex align-items-center mb-4">
@@ -67,6 +72,9 @@
 
         <div style="margin: 10rem 0">
             <span class="label-detail">Mô tả sản phẩm</span>
+            <p ng-if="Product.brand">{{Product.brand}}</p>
+            <p ng-if="Product.made_in">{{Product.made_in}}</p>
+            <p></p>
             <p class="product-detail-description">
                 {{ Product.description }}
             </p>

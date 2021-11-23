@@ -8,7 +8,7 @@ namespace project_clothes_object
 {
     public class ProductList
     {
-        public List<Product> Products { get; set; }
+        public List<Product> list_product { get; set; }
         public int total_count { get; set; }
     }
 }

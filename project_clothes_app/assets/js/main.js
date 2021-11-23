@@ -47,28 +47,45 @@ $('.journal-carousel').owlCarousel({
 $('#vertical-slider').lightSlider({
     gallery: true,
     item: 1,
+    keyPress: true,
     vertical: true,
     enableDrag: true,
     thumbItem: 3,
     thumbMargin: 10,
+    easing: 'linear',
+
     onSliderLoad: function () {
         $(window).resize();
-    }, onAfterSlide: function () {
-        $(window).resize();
     }
+    //, onAfterSlide: function () {
+    //    $(window).resize();
+    //}
 
     //slideMargin: 0
 });
-
-//$.each($(".lightSlider"), function (i, instance) {
-//    $(instance).imagesLoaded(function () {
-//        $(instance).lightSlider();
-//    });
-//});
 
 $(window).click(function(e) {
     if(!$(e.target).is(
     '.hero-search-type > *, .label-search-type-list, .ti-angle-right')) {
         $('.hero-search-type-list').removeClass('active');
     }
+
+    if (e.target.classList.contains('modal')) {
+        $('.modal').css('display', 'none');
+    }
 })
+
+
+// Modal
+$('.btn-user-login').click(function () {
+    $('.modal-login').css('display', 'grid');
+})
+
+$('.btn-close-modal').click(function () {
+    $('.modal').css('display', 'none');
+})
+
+$('.btn-back').click(function () {
+    $('.modal').css('display', 'none');
+})
+

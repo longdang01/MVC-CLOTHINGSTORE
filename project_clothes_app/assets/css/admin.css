@@ -1,0 +1,166 @@
+﻿
+.ps__rail-y {
+    display: none !important;
+}
+
+.brand-title {
+    margin: 0;
+    color: #fff;
+}
+
+.header-left {
+    display: none;
+}
+
+.header-right {
+    margin-left: auto;
+}
+
+.nav-header,
+.metismenu,
+.quixnav .metismenu ul,
+.hamburger .line,
+.pulse-css:after,
+.pulse-css:before,
+[data-sidebar-style="full"][data-layout="vertical"] .menu-toggle .nav-header .nav-control .hamburger .line {
+    background: #31353D !important;
+}
+
+
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+    color: #31353D;
+}
+
+.metismenu,
+.quixnav-scroll {
+    min-height: 100vh;
+    padding-bottom: 0 !important;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+}
+
+.content-body {
+    min-height: 100vh !important;
+}
+
+.dash-board-overlay {
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.dash-board-wrapper {
+    position: relative;
+    background-image: url('/assets/images/shop.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: calc(100vh - 80px - 64px);
+}
+
+.dash-board-title {
+    letter-spacing: 5px;
+    font-weight: bold;
+    font-size: 3rem;
+    color: #fff !important;
+    z-index: 2;
+}
+
+.container {
+    margin-top: 0 !important;
+}
+
+#product-admin-wrapper .table {
+    color: black !important;
+}
+
+.btn-info {
+    color: #fff;
+}
+
+.btn-add-product {
+    height: 35px;
+}
+.btn-add-product:hover {
+    color: #fff;
+}
+
+.txt-search-product {
+    width: 500px;
+}
+
+a:hover, a:focus, a.active {
+    color: #fff !important;
+}
+
+.action {
+    border: none;
+    align-items: center;
+    height: 75px;
+}
+
+.action a {
+    height: 35px;
+}
+
+.action a:not(:last-child) {
+    margin-right: .5rem;
+}
+
+.product-image {
+    height: 50px;
+}
+
+.product_name {
+    min-width: 320px;
+    word-wrap: break-word;
+}
+
+.product_code {
+    min-width: 90px;
+}
+
+/** Pagination */
+.pagination li,
+.pagination li a {
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+}
+
+.pagination li {
+    color: black;
+}
+
+.pagination li a {
+    color: black;
+}
+
+.pagination li a:hover {
+    color: inherit !important;
+}
+
+.pagination li.active a {
+    background: black;
+    color: #fff !important;
+}
+
+/* Modal */
+#modal-handle-product .form-control,
+#modal-handle-product .form-select {
+    outline: none !important;
+    border-radius: 0 !important;
+    border-color: #d3d3d3 !important;
+}
+
+#modal-handle-product .form-select:focus {
+    box-shadow: none;
+}
