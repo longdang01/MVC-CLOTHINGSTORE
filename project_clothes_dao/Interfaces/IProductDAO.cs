@@ -13,5 +13,6 @@ namespace project_clothes_dao
         Product getProductDetail(Guid product_id);
         void deleteProduct(Guid product_id);
         void addProduct(Product product);
+        void updateProduct(Product product);
     }
 }

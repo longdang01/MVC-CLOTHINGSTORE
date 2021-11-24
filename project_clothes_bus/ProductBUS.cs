@@ -27,5 +27,9 @@ namespace project_clothes_bus
         {
             productDAO.addProduct(product);
         }
+        public void updateProduct(Product product)
+        {
+            productDAO.updateProduct(product);
+        }
     }
 }

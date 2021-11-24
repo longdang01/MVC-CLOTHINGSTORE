@@ -65,6 +65,12 @@ namespace project_clothes_dao
             product.description, product.image_avt, product.brand, product.made_in, product.gender,
             product.status, product.category_id);
         }
+        public void updateProduct(Product product)
+        {
+            dh.storeReaders("updateProduct", product.product_id, product.product_code, product.product_name,
+            product.description, product.image_avt, product.brand, product.made_in, product.gender,
+            product.status, product.category_id);
+        }
         public List<Product> ToList(DataTable dt)
         {
             List<Product> l = new List<Product>();

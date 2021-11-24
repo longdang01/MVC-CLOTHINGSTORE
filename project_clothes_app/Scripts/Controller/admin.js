@@ -7,12 +7,12 @@ var app = angular.module('app_module',
 app.controller('product_admin_controller', ManageProducts)
 
 function ManageProducts($rootScope, $scope, $http, Upload, $timeout, $document) {
-    const urlGetCategoryList = '/ProductAdmin/getCategoryList/';
-    const urlGetProductList = '/ProductAdmin/getProductList';
-    const urlAddProduct = 'ProductAdmin/addProduct';
-    const urlDeleteProduct = 'ProductAdmin/deleteProduct';
+    const urlGetCategoryList = '/Admin/ProductAdmin/getCategoryList';
+    const urlGetProductList = '/Admin/ProductAdmin/getProductList';
+    const urlAddProduct = '/Admin/ProductAdmin/addProduct';
+    const urlUpdateProduct = '/Admin/ProductAdmin/updateProduct';
+    const urlDeleteProduct = '/Admin/ProductAdmin/deleteProduct';
     const urlUploadFile = '/Admin/ProductAdmin/Upload';
-
 
 
     // set up pagination
@@ -92,11 +92,14 @@ function ManageProducts($rootScope, $scope, $http, Upload, $timeout, $document) 
         made_in: '',
         gender: '1',
         status: '1',
-        category_id: ''
+        category_id: '',
+        list_color: [],
+        price: {}
     }
     $scope.product = $scope.initProduct;
 
     $scope.addProduct = () => {
+        $scope.product = $scope.initProduct;
         $scope.product.product_code = generateCodeRandom('PR', $scope.ListProduct.list_product, 'product_code', 4);
         $scope.titleModal = 'Add product';
         $scope.event = 1;
@@ -110,27 +113,54 @@ function ManageProducts($rootScope, $scope, $http, Upload, $timeout, $document) 
 
     //save product
     $scope.saveProduct = () => {
+        //handle image
+        if ($scope.product.image_avt.name) {
+            let prefix = 'assets/images/';
+            let dotPosition = $scope.product.image_avt.name.indexOf('.');
+            let extension = $scope.product.image_avt.name.substr(dotPosition);
+            let fileName = $scope.product.product_code;
+            let symbol = ($scope.product.category_id == '9D878519-BB84-4BA4-B05B-EA1B5DF33A11'.toLowerCase()) ? 'TOP' : 'BOTTOM';
+            $scope.product.image_avt = prefix + fileName + '_' + symbol + '_1' + extension;
+            console.log($scope.event);
+        }
+
+        //execute event
         if ($scope.event == 1) {
-            console.log($scope.product);
+            console.log(JSON.stringify($scope.product))
+            console.log($scope.product)
+
+            $http(
+                {
+                    method: 'POST',
+                    datatype: 'json',
+                    url: urlAddProduct,
+                    data: JSON.stringify($scope.product)
+                }
+            ).then(function success(d) {
+                console.log('add');
+                //$scope.ListProduct.list_product.push($scope.product);
+                //$scope.product = $scope.initProduct;
+            }, function error(e) {
+                console.log(e);
+                alert('Failed');
+            })
+        } else {
+            console.log($scope.product)
             //$http(
             //    {
             //        method: 'POST',
-            //        url: urlAddProduct,
-            //        datatype: 'Json',
+            //        datatype: 'json',
+            //        url: urlUpdateProduct,
             //        data: JSON.stringify($scope.product)
             //    }
-
             //).then(function success(d) {
-            //    console.log('add');
+            //    console.log('updated');
             //    //$scope.ListProduct.list_product.push($scope.product);
             //    //$scope.product = null;
             //}, function error() {
             //    alert('Failed');
             //})
-        } else {
-
         }
-
         $scope.UploadFile($scope.file, $scope.type);
     }
 
@@ -143,8 +173,8 @@ function ManageProducts($rootScope, $scope, $http, Upload, $timeout, $document) 
         $http(
             {
                 method: 'POST',
-                url: urlDeleteProduct,
                 datatype: 'Json',
+                url: urlDeleteProduct,
                 data: { product_id: $scope.selectedDelete.product_id }
             }
 
@@ -177,8 +207,9 @@ function ManageProducts($rootScope, $scope, $http, Upload, $timeout, $document) 
                     category: $scope.category_symbol
                 }
             }).then(d => {
-                console.log(d.data);
-                if (type == 'image') $scope.product.image_avt = "assets/images/" + d.data[0];
+                if (type == 'image') {
+                    $scope.product.image_avt = "assets/images/" + d.data[0];
+                }
             }, (error) => { alert('Failed')})
         }
     }

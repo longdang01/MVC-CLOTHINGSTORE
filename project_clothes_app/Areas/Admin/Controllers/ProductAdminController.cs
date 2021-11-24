@@ -43,12 +43,12 @@ namespace project_clothes_app.Areas.Admin.Controllers
         {
             productBUS.addProduct(product);
         }
-        //public JsonResult getCategoryName(Guid category_id)
-        //{
-        //     string category_name = categoryBUS.getCategoryName(category_id);
-
-        //    return Json(category_name, JsonRequestBehavior.AllowGet);
-        //}
+        [HttpPost]
+        public void updateProduct(Product product)
+        {
+            productBUS.updateProduct(product);
+        }
+        [HttpPost]
         public JsonResult Upload(string product_code, string category)
         {
             List<string> l = new List<string>();

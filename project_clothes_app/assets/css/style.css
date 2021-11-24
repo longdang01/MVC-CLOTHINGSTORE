@@ -822,3 +822,7 @@ input:-webkit-autofill:active {
     cursor: pointer;
     margin-left: 2rem;
 }
+
+#modal-cart .btn-close{
+    margin: -.5rem auto -.5rem -.5rem;
+}

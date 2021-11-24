@@ -13,6 +13,8 @@ namespace project_clothes_bus
         Product getProductDetail(Guid product_id);
         void deleteProduct(Guid product_id);
         void addProduct(Product product);
+        void updateProduct(Product product);
+
 
     }
 }
