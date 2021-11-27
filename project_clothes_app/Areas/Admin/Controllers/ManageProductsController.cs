@@ -9,44 +9,43 @@ using System.Web.Mvc;
 
 namespace project_clothes_app.Areas.Admin.Controllers
 {
-    public class ProductAdminController : Controller
+    public class ManageProductsController : Controller
     {
         // GET: Admin/ProductAdmin
         public ICategoryBUS categoryBUS = new CategoryBUS();
         public IProductBUS productBUS = new ProductBUS();
-
         public ActionResult Index()
         {
             return View();
         }
         [HttpGet]
-        public JsonResult getProductList(Guid category_id, int page_index, int page_size, string product_name)
+        public JsonResult GetProductList(Guid category_id, int page_index, int page_size, string product_name)
         {
-            ProductList pl = productBUS.getProductList(category_id, page_index, page_size, product_name);
+            ProductList pl = productBUS.GetProductList(category_id, page_index, page_size, product_name);
 
             return Json(pl, JsonRequestBehavior.AllowGet);
         }
         [HttpGet]
-        public JsonResult getCategoryList()
+        public JsonResult GetCategoryList()
         {
-            List<Category> lc = categoryBUS.getCategoryList();
+            List<Category> lc = categoryBUS.GetCategoryList();
 
             return Json(new { list_category = lc }, JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
-        public void deleteProduct(Guid product_id)
+        public void RemoveProduct(Guid product_id)
         {
-            productBUS.deleteProduct(product_id);
+            productBUS.RemoveProduct(product_id);
         }
         [HttpPost]
-        public void addProduct(Product product)
+        public void AddProduct(Product product)
         {
-            productBUS.addProduct(product);
+            productBUS.AddProduct(product);
         }
         [HttpPost]
-        public void updateProduct(Product product)
+        public void UpdateProduct(Product product)
         {
-            productBUS.updateProduct(product);
+            productBUS.UpdateProduct(product);
         }
         [HttpPost]
         public JsonResult Upload(string product_code, string category)

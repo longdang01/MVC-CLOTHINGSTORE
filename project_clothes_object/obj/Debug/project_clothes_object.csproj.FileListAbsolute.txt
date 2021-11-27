@@ -3,4 +3,3 @@ F:\project_clothes\project_clothes_app\project_clothes_object\bin\Debug\project_
 F:\project_clothes\project_clothes_app\project_clothes_object\obj\Debug\project_clothes_object.csproj.CoreCompileInputs.cache
 F:\project_clothes\project_clothes_app\project_clothes_object\obj\Debug\project_clothes_object.dll
 F:\project_clothes\project_clothes_app\project_clothes_object\obj\Debug\project_clothes_object.pdb
-F:\project_clothes\project_clothes_app\project_clothes_object\obj\Debug\project_clothes_object.csproj.AssemblyReference.cache

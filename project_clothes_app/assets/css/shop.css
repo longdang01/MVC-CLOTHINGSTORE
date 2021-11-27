@@ -245,6 +245,7 @@
 .product-detail-size,
 .product-detail-color {
     margin-right: 1rem;
+    cursor: pointer;
 }
 
 
@@ -371,3 +372,17 @@
     color: #fff;
 }
 
+.btn-buy-now,
+.btn-add-to-cart {
+    display: block;
+    width: 100%;
+    margin-bottom: 1.5rem
+}
+
+.lSPager.lSGallery li, .lSPager.lSGallery a, .lSPager.lSGallery img {
+    height: 178px !important;
+}
+
+.lSPager.lSGallery img {
+    border: 2px solid black
+}

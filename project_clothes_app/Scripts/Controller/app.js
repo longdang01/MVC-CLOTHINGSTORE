@@ -1,135 +1,103 @@
-﻿var app = angular.module('app_module', ['angularUtils.directives.dirPagination']);
+﻿const app = angular.module('App', ['angularUtils.directives.dirPagination']);
 
-app.controller('product_controller', getProductList);
+app.controller('ProductController', ProductController);
 
-app.controller('product_detail_controller', getProductDetail)
+app.controller('DetailController', DetailController);
 
-function getProductList($rootScope, $scope, $http) {
+function ProductController($rootScope, $scope, $http) {
     // set up pagination
-    $rootScope.max_size = 3;
-    $rootScope.total_count = 0;
-    $rootScope.page_index = 1;
-    $rootScope.page_size = 6; //number of items per page
-    $rootScope.search_name = '';
-    $rootScope.category_id = '';
+    $scope.max_size = 3;
+    $scope.total_count = 0;
+    $scope.page_index = 1;
+    $scope.page_size = 6; //number of items per page
+    $scope.search_name = '';
+    $scope.category_id = '';
 
     // get category id
-    var category_id = "";
-    $scope.getCategoryId = function () {
-        category_id = localStorage.getItem('category_id');
-        if (category_id == null) {
-            category_id = '00000000-0000-0000-0000-000000000000';
-        }
-    }
-    $scope.getCategoryId();
+    var category_id = localStorage.getItem('category_id');
+    if (category_id == null) category_id = '00000000-0000-0000-0000-000000000000';
 
     // get products 
-    $scope.getProductList = function (index) {
-            $http(
-            {
-                method: 'GET',
-                url: '/Shop/getProductList',
-                params: {
-                    category_id: category_id, page_index: index,
-                    page_size: $rootScope.page_size, product_name: $rootScope.search_name
-                }
+    const urlGetProductList = '/Shop/GetProductList';
+    $scope.GetProductList = (index) => {
+        $http(
+        {
+            method: 'GET',
+            url: urlGetProductList,
+            params: {
+                category_id: category_id, page_index: index,
+                page_size: $scope.page_size, product_name: $scope.search_name
             }
-        ).then(function success(d) {
-            $scope.ListProduct = d.data;
-            //console.log($scope.ListProduct);    
-            $rootScope.total_count = $scope.ListProduct.total_count;
-        }, function error() {
-            alert('FAILED');
+            }).then((res) => {
+                console.log(res.data);
+                $scope.ListProduct = res.data;
+                $scope.total_count = $scope.ListProduct.total_count;
+            },  (err) => {
+                console.log(`Message: ${err}`);
         })
     }
-    $scope.getProductList($rootScope.page_index);
+    $scope.GetProductList($scope.page_index);
 
     // save category_id
-    $scope.selectCategory = function (category) {
-        localstorage.setItem('category_id', category.category_id);
-    }
+    $scope.SelectCategory = (category) => localstorage.setItem('category_id', category.category_id);
 
-    // view product detail
-    $scope.ViewDetail = (product) => {
-        if (product == null) {
-            localStorage.setItem('product_view_detail', '')
-        } else {
-            localStorage.setItem('product_view_detail', product.product_id)
-        }
-    }
+    // go to product detail
+    $scope.GoToDetail = (product) => localStorage.setItem('product_detail_id', product.product_id)
 }
 
-function getProductDetail($rootScope, $scope, $http) {
-    var product_view_detail = localStorage.getItem('product_view_detail');
+function DetailController($rootScope, $scope, $http) {
+    var product_detail_id = localStorage.getItem('product_detail_id');
 
     $http(
         {
             method: 'GET',
-            url: '/ProductDetail/getProductDetail/',
-            params: { product_id: product_view_detail }
+            url: '/ProductDetail/GetProductDetail/',
+            params: { product_id: product_detail_id }
         }
-    ).then(function success(d) {
-        $scope.Product = d.data;
+    ).then((res) => {
+        $scope.product = res.data;
+        $scope.index = 0;
 
+        //init 
         const colors = [];
-        var sizes = [];
-        $scope.Product.list_color.forEach((item, index) => {
-            //init colors
-            colors.push({ color: item.color, hex: item.hex, images: [], sizes: [] });
+        const listColors = $scope.product.list_color;
+        listColors.forEach((item, index) => {
+            //init color item
+            let colorItem = {
+                color: item.color,
+                hex: item.hex,
+                images: [],
+                sizes: []
+            }
+            // get images    
+            let listImages = (item.images) ? [item.avatar, ...item.images.split(', ')] : [item.avatar, item.avatar];
 
-            //get list image
-            item.list_image.forEach(image => {
-                colors[index].images.unshift(image.image);
-            })
+            // get sizes
+            let listSizes = [];
+            item.list_size.forEach(size => listSizes.push({ size: size.size, quantity: size.quantity }))
 
-            colors[index].images.unshift(item.image);
-
-            //get size
-            item.list_size.forEach(size => {
-                colors[index].sizes.push({ size: size.size, quantity: size.quantity });
-
-                sizes.push({ size: size.size })
-            })
-
-            //get all sizes
-            sizes = getUniqueListBy(sizes, 'size');
+            // assign images, sizes
+            colorItem.images = listImages;
+            colorItem.sizes = listSizes;
 
             //sort size
-            colors[index].sizes.sort(compare);
-            sizes.sort(compare);
+            let sizes = ['S', 'M', 'L', 'XL'];
+            colorItem.sizes.sort(function (a, b) {
+                return sizes.indexOf(a.size) - sizes.indexOf(b.size);
+            })
+
+            //push item to colors
+            colors.push(colorItem);
         })
 
-        console.log(colors);
-
-        var images = [];
-        colors.forEach(item => {
-            let el = item.images.join(', ');
-            if (item.images.length > 0) {
-                item.images.forEach(e => images.push(e));
-            }else 
-                images.push(el);
-            //console.log(item.images.join());
-        })
-        console.log(images);
-
-        $scope.images = images;
-        $scope.colors = { list_color: colors };
-        $scope.sizes = sizes;
-    }, function error() {
-        alert('Failed')
+        $scope.colors = colors;
+        console.log($scope.colors);
+    }, (err) => {
+        console.log(`Message: ${err}`);
     })
 
-    function getUniqueListBy(arr, key) {
-        return [...new Map(arr.map(item => [item[key], item])).values()]
-    }
-
-    function compare(a, b) {
-        if (a.size < b.size) {
-            return -1;
-        }
-        if (a.size > b.size) {
-            return 1;
-        }
-        return 0;
-    }
+    //function getUniqueListBy(arr, key) {
+    //    return [...new Map(arr.map(item => [item[key], item])).values()]
+    //}
 }
+

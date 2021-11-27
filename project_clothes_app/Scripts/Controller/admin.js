@@ -1,188 +1,189 @@
 ﻿//const { localstorage } = require("modernizr");
 
-var app = angular.module('app_module',
-    ['angularUtils.directives.dirPagination', 'ngFileUpload']
-);
+var app = angular.module('AdminApp', ['angularUtils.directives.dirPagination', 'ngFileUpload']);
 
-app.controller('product_admin_controller', ManageProducts)
+app.controller('ManageProductsController', ManageProducts)
 
 function ManageProducts($rootScope, $scope, $http, Upload, $timeout, $document) {
-    const urlGetCategoryList = '/Admin/ProductAdmin/getCategoryList';
-    const urlGetProductList = '/Admin/ProductAdmin/getProductList';
-    const urlAddProduct = '/Admin/ProductAdmin/addProduct';
-    const urlUpdateProduct = '/Admin/ProductAdmin/updateProduct';
-    const urlDeleteProduct = '/Admin/ProductAdmin/deleteProduct';
-    const urlUploadFile = '/Admin/ProductAdmin/Upload';
-
+    const urlGetCategoryList = '/Admin/ManageProducts/GetCategoryList';
+    const urlGetProductList = '/Admin/ManageProducts/GetProductList';
+    const urlAddProduct = '/Admin/ManageProducts/AddProduct';
+    const urlUpdateProduct = '/Admin/ManageProducts/UpdateProduct';
+    const urlRemoveProduct = '/Admin/ManageProducts/RemoveProduct';
+    const urlUploadFile = '/Admin/ManageProducts/Upload';
 
     // set up pagination
-    $rootScope.max_size = 3;
-    $rootScope.total_count = 0;
-    $rootScope.page_index = 1;
-    $rootScope.page_size = 5; //number of items per page
-    $rootScope.search_name = '';
-    $rootScope.category_id = '';
+    $scope.max_size = 3;
+    $scope.total_count = 0;
+    $scope.page_index = 1;
+    $scope.page_size = 5; //number of items per page
+    $scope.search_name = '';
+    $scope.category_id = '';
 
     // get category id
-    var category_id = "";
-    $scope.getCategoryId = () => {
-        category_id = localStorage.getItem('category_id');
-        if (category_id == null) {
-            category_id = '00000000-0000-0000-0000-000000000000';
-        }
-    }
-    $scope.getCategoryId();
-
-    // save category_id
-    $scope.selectCategory = (category) => {
-        localstorage.setItem('category_id', category.category_id);
-    }
+    var category_id = localStorage.getItem('category_id');
+    if (category_id == null) category_id = '00000000-0000-0000-0000-000000000000';
 
     // get category
-    $scope.getCategoryList = () => {
+    $scope.GetCategoryList = () => {
         $http(
             {
                 method: 'GET',
                 url: urlGetCategoryList
             }
         ).then(function success(d) {
-            $rootScope.list_category = d.data.list_category;
+            $scope.list_category = d.data.list_category;
         }, function error() {
             alert("Failed");
         })
     }
 
-    $scope.getCategoryList();
+    $scope.GetCategoryName = (products) => {
+        products.forEach(el => {
+            var pro = el;
+            let categoryName =
+                $scope.list_category.filter(lc => lc.category_id == pro.category_id)[0].category_name;
+            el["category_name"] = categoryName;
+        })
+    }
+
+    $scope.GetCategoryList();
 
     // get products 
-    $scope.getProductList = (index) => {
+    $scope.GetProductList = (index) => {
         $http(
             {
                 method: 'GET',
                 url: urlGetProductList,
                 params: {
                     category_id: category_id, page_index: index,
-                    page_size: $rootScope.page_size, product_name: $rootScope.search_name
+                    page_size: $scope.page_size, product_name: $scope.search_name
                 }
-            }
-        ).then(function success(d) {
-            $scope.ListProduct = d.data;
-            $scope.ListProduct.list_product.forEach(el => {
-                var pro = el;
-                let categoryName =
-                    $rootScope.list_category.filter(lc => lc.category_id == pro.category_id)[0].category_name;
-                el["category_name"] = categoryName;
-            })
-            console.log($scope.ListProduct.list_product)
-            $rootScope.total_count = $scope.ListProduct.total_count;
-        }, function error() {
-            alert('FAILED');
-        })
-    }
-    $scope.getProductList($rootScope.page_index);
+            }).then((res) => {
+                console.log(res.data);
+                $scope.ListProduct = res.data;
+                $scope.GetCategoryName($scope.ListProduct.list_product);
 
+                $scope.total_count = $scope.ListProduct.total_count;
+            }, (err) => {
+                console.log(`Message: ${err}`);
+            })
+    }
+    $scope.GetProductList($scope.page_index);
+
+    // save category_id
+    $scope.SelectCategory = (category) => localstorage.setItem('category_id', category.category_id);
+
+    // go to product detail
+    $scope.GoToDetail = (product) => localStorage.setItem('product_detail_id', product.product_id)
+
+    //Handle product (add, update, remove)
     //add product
-    $scope.initProduct = {
-        product_id: '00000000-0000-0000-0000-000000000000',
-        product_code: '',
-        product_name: '',
-        description: '',
-        image_avt: '',
-        brand: '',
-        made_in: '',
-        gender: '1',
-        status: '1',
-        category_id: '',
+    var initProduct = {
+        product_id: "00000000-0000-0000-0000-000000000000",
+        product_code: "",
+        product_name: "",
+        description: "",
+        brand: "",
+        made_in: "",
+        gender: "",
+        status: "",
+        category_id: "00000000-0000-0000-0000-000000000000",
         list_color: [],
         price: {}
     }
-    $scope.product = $scope.initProduct;
+   
+    $scope.product = initProduct;
 
-    $scope.addProduct = () => {
-        $scope.product = $scope.initProduct;
+    $scope.AddProduct = (event) => {
+        $scope.product = initProduct;
         $scope.product.product_code = generateCodeRandom('PR', $scope.ListProduct.list_product, 'product_code', 4);
         $scope.titleModal = 'Add product';
-        $scope.event = 1;
+        $scope.event = event;
     }
 
-    $scope.updateProduct = (product) => {
+    $scope.UpdateProduct = (product, event) => {
         $scope.product = product;
         $scope.titleModal = 'Update product';
-        $scope.event = 2;
+        $scope.event = event;
     }
 
     //save product
-    $scope.saveProduct = () => {
+    $scope.SaveProduct = (product, event) => {
         //handle image
-        if ($scope.product.image_avt.name) {
-            let prefix = 'assets/images/';
-            let dotPosition = $scope.product.image_avt.name.indexOf('.');
-            let extension = $scope.product.image_avt.name.substr(dotPosition);
-            let fileName = $scope.product.product_code;
-            let symbol = ($scope.product.category_id == '9D878519-BB84-4BA4-B05B-EA1B5DF33A11'.toLowerCase()) ? 'TOP' : 'BOTTOM';
-            $scope.product.image_avt = prefix + fileName + '_' + symbol + '_1' + extension;
-            console.log($scope.event);
-        }
-
+        //if ($scope.product.image_avt.name) {
+        //    let prefix = 'assets/images/';
+        //    let dotPosition = $scope.product.image_avt.name.indexOf('.');
+        //    let extension = $scope.product.image_avt.name.substr(dotPosition);
+        //    let fileName = $scope.product.product_code;
+        //    let symbol = ($scope.product.category_id == '9D878519-BB84-4BA4-B05B-EA1B5DF33A11'.toLowerCase()) ? 'TOP' : 'BOTTOM';
+        //    $scope.product.image_avt = prefix + fileName + '_' + symbol + '_1' + extension;
+        //    console.log($scope.event);
+        //}
         //execute event
-        if ($scope.event == 1) {
-            console.log(JSON.stringify($scope.product))
-            console.log($scope.product)
-
+        if (event === 0) {
+            console.log(product);
             $http(
                 {
                     method: 'POST',
-                    datatype: 'json',
+                    dataType: 'json',
                     url: urlAddProduct,
-                    data: JSON.stringify($scope.product)
+                    data: JSON.stringify(product)
                 }
-            ).then(function success(d) {
+            ).then((res) => {
                 console.log('add');
-                //$scope.ListProduct.list_product.push($scope.product);
+                $scope.ListProduct.list_product = [product, ...$scope.ListProduct.list_product];
+                $scope.GetCategoryName($scope.ListProduct.list_product);
+
                 //$scope.product = $scope.initProduct;
-            }, function error(e) {
-                console.log(e);
-                alert('Failed');
+            }, (err) => {
+                console.log(`Message: ${err}`);
             })
         } else {
-            console.log($scope.product)
-            //$http(
-            //    {
-            //        method: 'POST',
-            //        datatype: 'json',
-            //        url: urlUpdateProduct,
-            //        data: JSON.stringify($scope.product)
-            //    }
-            //).then(function success(d) {
-            //    console.log('updated');
-            //    //$scope.ListProduct.list_product.push($scope.product);
-            //    //$scope.product = null;
-            //}, function error() {
-            //    alert('Failed');
-            //})
+            console.log(product);
+            $http(
+                {
+                    method: 'POST',
+                    url: urlUpdateProduct,
+                    data: { product: product }
+                }
+            ).then((res) => {
+                console.log('updated');
+                const index = $scope.ListProduct.list_product
+                            .findIndex(i => i.product_id === product.product_id);
+                $scope.ListProduct.list_product[index] = product;
+
+                //$scope.ListProduct.list_product.push($scope.product);
+                //$scope.product = null;
+            }, (err) => {
+
+                console.log(`Message: ${err.message}`);
+            })
         }
-        $scope.UploadFile($scope.file, $scope.type);
+        //upload file
+        //$scope.UploadFile($scope.file, $scope.type);
+        $('#modal-handle-product').modal('hide')
     }
 
     //delete product
-    $scope.deleteProduct = (product) => {
+    $scope.RemoveProduct = (product) => {
         $scope.selectedDelete = product
     }
 
-    $scope.confirmDelete = (product) => {
+    $scope.ConfirmDelete = (product) => {
         $http(
             {
                 method: 'POST',
-                datatype: 'Json',
-                url: urlDeleteProduct,
+                datatype: 'json',
+                url: urlRemoveProduct,
                 data: { product_id: $scope.selectedDelete.product_id }
             }
 
-        ).then(function success(d) {
+        ).then((res) => {
             var index = $scope.ListProduct.list_product.indexOf($scope.selectedDelete);
             $scope.ListProduct.list_product.splice(index, 1);
-        }, function error() {
-            alert('Failed');
+        }, (err) => {
+            console.log(`Messge: ${err}`);
         })
         $('#modal-confirm').modal('hide');
     }
@@ -211,15 +212,6 @@ function ManageProducts($rootScope, $scope, $http, Upload, $timeout, $document) 
                     $scope.product.image_avt = "assets/images/" + d.data[0];
                 }
             }, (error) => { alert('Failed')})
-        }
-    }
-
-    // view product detail
-    $scope.ViewDetail = (product) => {
-        if (product == null) {
-            localStorage.setItem('product_view_detail', '')
-        } else {
-            localStorage.setItem('product_view_detail', product.product_id)
         }
     }
 }

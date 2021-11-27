@@ -156,7 +156,8 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeAdminController.cs" />
-    <Compile Include="Areas\Admin\Controllers\ProductAdminController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ManageProductsController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProductDetailController.cs" />
     <Compile Include="Controllers\ShopController.cs" />
@@ -4197,6 +4198,7 @@
     <Content Include="assets\icons\themify-icons\SVG\zoom-in.svg" />
     <Content Include="assets\icons\themify-icons\SVG\zoom-out.svg" />
     <Content Include="assets\icons\themify-icons\themify-icons.css" />
+    <Content Include="assets\images\bg_white.jpg" />
     <Content Include="assets\images\letter.jpg" />
     <Content Include="assets\images\NEWS_001.jpg" />
     <Content Include="assets\images\NEWS_002.jpg" />
@@ -4627,7 +4629,7 @@
     <Content Include="Areas\Admin\Assets\vendor\tinymce\skins\lightgray\fonts\tinymce.woff" />
     <Content Include="Areas\Admin\Views\Shared\_Navbar.cshtml" />
     <Content Include="Areas\Admin\Views\HomeAdmin\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\ProductAdmin\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\ManageProducts\Index.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\FileAPI.flash.swf" />
     <Content Include="Scripts\FileAPI.js" />
@@ -5417,6 +5419,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Models\" />
+    <Folder Include="Views\Customer\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

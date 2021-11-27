@@ -9,6 +9,6 @@ namespace project_clothes_dao
 {
     public interface IProductColorDAO
     {
-        List<ProductColor> getProductColors(Guid product_id);
+        List<ProductColor> GetProductColors(Guid product_id);
     }
 }

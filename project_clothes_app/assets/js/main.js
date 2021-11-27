@@ -1,4 +1,5 @@
-$('.hero-search-type > a').click(function() {
+//
+$('.hero-search-type > a').click(function () {
     $(this).siblings().find('a').each(function() {
         if($('.label-search-type-list').text() === $(this).text()) {
             $(this).addClass('activated');
@@ -47,6 +48,7 @@ $('.journal-carousel').owlCarousel({
 $('#vertical-slider').lightSlider({
     gallery: true,
     item: 1,
+
     keyPress: true,
     vertical: true,
     enableDrag: true,
@@ -60,8 +62,6 @@ $('#vertical-slider').lightSlider({
     //, onAfterSlide: function () {
     //    $(window).resize();
     //}
-
-    //slideMargin: 0
 });
 
 $(window).click(function(e) {

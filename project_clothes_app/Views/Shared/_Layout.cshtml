@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="~/assets/css/shop.css">
     <link rel="stylesheet" href="~/assets/css/style.css">
 </head>
-<body ng-app="app_module">
+<body ng-app="App">
     <div class="app">
         @Html.Partial("_Header")
 
@@ -27,7 +27,7 @@
     </div>
 
     <!-- cartt -->
-    <div id="modal-cart" class="modal" tabindex="-1">
+    <div id="modal-cart" style="display: none" class="modal" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header d-flex justify-content-between align-items-center">
@@ -37,14 +37,13 @@
                 <div class="modal-body">
                     <p>Modal body text goes here.</p>
                 </div>
-                <hr />
-                <div class="d-flex align-items-center justify-content-between" >
+                <div class="d-flex align-items-center justify-content-between">
                     <span>Total</span>
                     <h3>0đ</h3>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-dark">Xem giỏ hàng</button>
-                    <button type="button" class="btn btn-dark">Thanh toán</button>
+                <div class="modal-footer row">
+                    <button type="button" class="btn btn-dark col">Xem giỏ hàng</button>
+                    <button type="button" class="btn btn-dark col">Thanh toán</button>
                 </div>
             </div>
         </div>
@@ -56,20 +55,20 @@
             <a href="#" class="btn-close-modal"><i class="fas fa-times"></i></a>
             <h3 class="modal-content-title title">Đăng nhập</h3>
 
-            <form action="#">
+            <form action="#" >
                 <div class="content-email">
-                    <input class="txt-user email" type="text" placeholder="Địa chỉ email" required>
+                    <input class="txt-user email" type="text" ng-model="username" placeholder="Địa chỉ email" required>
                     <i class="far fa-envelope"></i>
                 </div>
                 <div class="content-password">
-                    <input class="txt-user password" type="password" placeholder="Mật khẩu" required>
+                    <input class="txt-user password" type="password" ng-model="password" placeholder="Mật khẩu" required>
                     <i class="fas fa-lock"></i>
                 </div>
                 <div class="options-pass">
-                    <input type="checkbox" id="remember"><label for="remember" class="lbl-remember">Nhớ mật khẩu</label>
+                    <input type="checkbox" id="remember"><label for="remember" ng-model="remember" class="lbl-remember">Nhớ mật khẩu</label>
                     <a href="#" class="btn-forget">Quên mật khẩu</a>
                 </div>
-                <button type="submit" class="btn btn-login-submit">Đăng nhập</button>
+                <button type="submit" ng-click="Login(username, password, remember)" class="btn btn-login-submit">Đăng nhập</button>
                 <h3 class="title-separate">Hoặc</h3>
                 <a href="#" class="login-facebook login-option"><span>Đăng nhập với Facebook</span><i class="fab fa-facebook-square"></i></a>
                 <a href="#" class="login-google login-option"><span>Đăng nhập với Google</span><i class="fab fa-google"></i></a>

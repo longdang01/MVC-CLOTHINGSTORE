@@ -9,7 +9,7 @@ namespace project_clothes_bus
 {
     public interface ICategoryBUS
     {
-        List<Category> getCategoryList();
+        List<Category> GetCategoryList();
         //string getCategoryName(Guid category_id);
 
     }

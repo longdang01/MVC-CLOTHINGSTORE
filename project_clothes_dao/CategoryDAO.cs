@@ -12,20 +12,13 @@ namespace project_clothes_dao
     public class CategoryDAO : ICategoryDAO
     {
         DataHelper dh = new DataHelper();
-        public List<Category> getCategoryList()
+        public List<Category> GetCategoryList()
         {
             string query = "select * from TBL_category";
             DataTable dt = dh.getDataTable(query);
 
             return ToList(dt);
         }
-        //public string getCategoryName(Guid category_id)
-        //{
-        //    string query = $" SELECT category_name FROM TBL_category WHERE category_id = {category_id}";
-        //    DataTable dt = dh.getDataTable(query);
-
-        //    return ToList(dt)[0].category_name;
-        //}
         public List<Category> ToList(DataTable dt)
         {
             List<Category> l = new List<Category>();

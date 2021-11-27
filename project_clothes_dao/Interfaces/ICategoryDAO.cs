@@ -9,6 +9,6 @@ namespace project_clothes_dao
 {
     public interface ICategoryDAO
     {
-        List<Category> getCategoryList();
+        List<Category> GetCategoryList();
     }
 }

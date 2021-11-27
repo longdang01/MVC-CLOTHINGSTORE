@@ -10,10 +10,20 @@
     z-index: 9999;
 }
 
+.btn-user-options {
+    display: inline-block;
+    width: 45px !important;
+    height: 45px !important;
+    border: 0 !important;
+    background: #fff;
+}
+
 .nav-user-list {
     position: absolute;
-    top: 130%;
+    top: 50% !important;
     right: 0;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
     font-size: 1.5rem;
     min-width: 200px;
     background: #fff;

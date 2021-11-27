@@ -11,7 +11,7 @@ namespace project_clothes_dao
     public class ProductPriceDAO : IProductPriceDAO
     {
         public DataHelper dh = new DataHelper();
-        public ProductPrice getProductPrice(Guid product_id)
+        public ProductPrice GetProductPrice(Guid product_id)
         {
             string query = $"select * from TBL_product_price where product_id = '{product_id}'";
             DataTable dt = dh.getDataTable(query);

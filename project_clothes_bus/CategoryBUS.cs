@@ -11,9 +11,9 @@ namespace project_clothes_bus
     public class CategoryBUS : ICategoryBUS
     {
         public ICategoryDAO categoryDAO = new CategoryDAO(); 
-        public List<Category> getCategoryList()
+        public List<Category> GetCategoryList()
         {
-            return categoryDAO.getCategoryList();
+            return categoryDAO.GetCategoryList();
         }
         //public string getCategoryName(Guid category_id)
         //{

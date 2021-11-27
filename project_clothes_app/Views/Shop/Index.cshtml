@@ -59,7 +59,7 @@
                 </div>
             </div>
         </div>
-        <div  ng-controller="product_controller" class="shop-products">
+        <div  ng-controller="ProductController" class="shop-products">
             <div style="height: 46px; margin-bottom: 3rem;" class="d-flex align-items-center justify-content-between">
                 <span>Showing 1–{{ page_size }} of {{ total_count }} results</span>
                 <div>
@@ -76,8 +76,8 @@
                 <div dir-paginate="product in ListProduct.list_product|itemsPerPage: page_size" total-items="total_count"
                      class="product-carousel-item position-relative item">
                     <div class="product-img-wrap position-relative overflow-hidden">
-                        <a href="/ProductDetail/Index" class="product-img" ng-click="ViewDetail(product)">
-                            <img class="product-carousel-img" ng-src="../{{ product.image_avt }}" alt="">
+                        <a href="/ProductDetail/Index" class="product-img" ng-click="GoToDetail(product)">
+                            <img class="product-carousel-img" ng-src="../{{ product.list_color[0].avatar }}" alt="">
                             <div class="overlay"></div>
                         </a>
 
@@ -100,7 +100,7 @@
                 <dir-pagination-controls max-size="max_size"
                                          direction-links="true"
                                          boundary-links="true"
-                                         on-page-change="getProductList(newPageNumber)">
+                                         on-page-change="GetProductList(newPageNumber)">
                 </dir-pagination-controls>
             </div>
         </div>

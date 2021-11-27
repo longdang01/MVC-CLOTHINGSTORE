@@ -13,16 +13,16 @@ namespace project_clothes_object
         public string phone_number { get; set; }
         public string address { get; set; }
         public string email { get; set; }
-        public User user { get; set; }
+        public Guid user_id { get; set; }
         public Customer(Guid customer_id, string customer_name, string phone_number, string address,
-            string email, User user)
+            string email, Guid user_id)
         {
             this.customer_id = customer_id;
             this.customer_name = customer_name;
             this.phone_number = phone_number;
             this.address = address;
             this.email = email;
-            this.user = user;
+            this.user_id = user_id;
         }
 
     }

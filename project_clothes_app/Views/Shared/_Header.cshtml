@@ -23,11 +23,15 @@
                            class="cart-amount text-decoration-none">0</a>
                     </div>
                 </div>
-                <div class="nav-user position-relative">
-                    <a href="#"><i class="ti-user"></i></a>
-                    <ul class="nav-user-list">
-                        <li><a href="#" class="btn-user-login">Đăng nhập</a></li>
-                        <li><a href="#" class="btn-user-register">Đăng ký</a></li>
+                <div class="nav-user dropdown position-relative">
+                    <button class="dropdown-toggle btn-user-options"
+                            type="button" id="dropdown-user"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false"><i class="ti-user"></i></button>
+                    <ul class="dropdown-menu nav-user-list"
+                        aria-labelledby="dropdown-user">
+                        <li><a href="#" class="dropdown-item btn-user-login">Đăng nhập</a></li>
+                        <li><a href="#" class="dropdown-item btn-user-register">Đăng ký</a></li>
                     </ul>
                 </div>
             </div>

@@ -1,17 +1,15 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_LayOut.cshtml";
 }
 
-<div id="product-admin-wrapper" ng-controller="product_admin_controller" class="container">
+<div id="product-admin-wrapper" ng-controller="ManageProductsController" class="container">
     <div class="d-flex justify-content-between align-items-center">
         <input type="text" class="form-control mb-3 txt-search-product"
                placeholder="Search ... ">
-        <a href="#" data-bs-toggle="modal" data-bs-target="#modal-handle-product" 
+        <a href="#" data-bs-toggle="modal" data-bs-target="#modal-handle-product"
            class="btn btn-info btn-add-product mb-3"
-           ng-click="addProduct()"
-           >Add product</a>
+           ng-click="AddProduct(0)">Add product</a>
 
     </div>
 
@@ -24,7 +22,6 @@
                 <th>Name</th>
                 <th>Price</th>
                 <th>Category</th>
-                <th>Image</th>
                 <th>Action</th>
                 <th>Show</th>
             </tr>
@@ -36,19 +33,16 @@
                 <td class="product_name">{{ product.product_name }}</td>
                 <td>{{ product.price.price_current | currency : "" : 0 }}</td>
                 <td>{{ product.category_name }}</td>
-                <td>
-                    <img data-ng-src="../../../{{ product.image_avt }}" class="product-image" />
-                </td>
 
                 <td class="action d-flex">
                     <a href="#" data-bs-toggle="modal" data-bs-target="#modal-handle-product"
-                       ng-click="viewProduct()" class="btn btn-info">View</a>
+                       ng-click="ViewProduct()" class="btn btn-info">View</a>
 
                     <a href="#" data-bs-toggle="modal" data-bs-target="#modal-handle-product"
-                       ng-click="updateProduct(product)" class="btn btn-primary">Update</a>
+                       ng-click="UpdateProduct(product, 1)" class="btn btn-primary">Update</a>
 
                     <a href="#" data-bs-toggle="modal" data-bs-target="#modal-confirm"
-                       ng-click="deleteProduct(product)" class="btn btn-danger">Delete</a>
+                       ng-click="RemoveProduct(product)" class="btn btn-danger">Delete</a>
                 </td>
                 <td>
                     <input type="checkbox" checked />
@@ -61,7 +55,7 @@
         <dir-pagination-controls max-size="max_size"
                                  direction-links="true"
                                  boundary-links="true"
-                                 on-page-change="getProductList(newPageNumber)">
+                                 on-page-change="GetProductList(newPageNumber)">
         </dir-pagination-controls>
     </div>
 
@@ -86,7 +80,7 @@
                                 <label class="form-label">Category</label>
                                 <select ng-model="product.category_id"
                                         class="form-select">
-                                    <option value="">Choose category</option>
+                                    <option value="00000000-0000-0000-0000-000000000000">Choose category</option>
                                     <option ng-repeat="category in list_category"
                                             value="{{category.category_id}}">
                                         {{category.category_name}}
@@ -95,24 +89,24 @@
                             </div>
                         </div>
                     </div>
-                   
+
                     <div class="mb-3">
                         <label class="form-label">Name</label>
-                        <input type="text" class="form-control" 
+                        <input type="text" class="form-control"
                                ng-model="product.product_name" placeholder="">
                     </div>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label class="form-label">Brand</label>
-                                <input type="text" class="form-control" 
+                                <input type="text" class="form-control"
                                        ng-model="product.brand" placeholder="">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label class="form-label">Made in</label>
-                                <input type="text" class="form-control" 
+                                <input type="text" class="form-control"
                                        ng-model="product.made_in" placeholder="">
                             </div>
                         </div>
@@ -122,6 +116,7 @@
                             <label class="form-label">Gender</label>
 
                             <select class="form-select" ng-model="product.gender">
+                                <option value="">Choose gender</option>
                                 <option value="1" selected>Male</option>
                                 <option value="2">Female</option>
                                 <option value="3">Unknown</option>
@@ -129,29 +124,30 @@
                         </div>
                         <div class="col-md-6">
                             <label class="form-label">Status</label>
-
+                            
                             <select class="form-select" ng-model="product.status">
+                                <option value="">Choose status</option>
                                 <option value="1" selected>Show</option>
                                 <option value="2">Hide</option>
                             </select>
                         </div>
                     </div>
-                    
+
                     <div class="mb-3">
                         <label class="form-label">Description</label>
                         <textarea class="form-control" ng-model="product.description" rows="3"></textarea>
                     </div>
-                    <div class="mb-3">
-                        <label class="form-label">Image</label>
-                        <input class="form-control" ng-model="product.image_avt" 
-                               ngf-select="UploadImage($files, 'image')"
-                               type="file">
-                    </div>
+                    @*<div class="mb-3">
+                            <label class="form-label">Image</label>
+                            <input class="form-control" ng-model="product.image_avt"
+                                   ngf-select="UploadImage($files, 'image')"
+                                   type="file">
+                        </div>*@
                 </div>
                 <div class="modal-footer">
                     <button style="background: grey; border: none" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button style="border: none" type="submit" class="btn btn-primary"
-                            ng-click="saveProduct()">
+                            ng-click="SaveProduct(product, event)">
                         Save
                     </button>
                 </div>
@@ -173,7 +169,7 @@
                 <div class="modal-footer">
                     <button style="background: grey; border: none" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button style="border: none" type="button" class="btn btn-primary"
-                            ng-click="confirmDelete()">
+                            ng-click="ConfirmDelete()">
                         Delete
                     </button>
                 </div>
@@ -181,4 +177,6 @@
         </div>
     </div>
 </div>
+
+
 

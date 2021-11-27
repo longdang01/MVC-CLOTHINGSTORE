@@ -62,23 +62,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CategoryDAO.cs" />
-    <Compile Include="CustomerDAO.cs" />
     <Compile Include="DataHelper.cs" />
     <Compile Include="Interfaces\ICategoryDAO.cs" />
-    <Compile Include="Interfaces\ICustomerDAO.cs" />
     <Compile Include="Interfaces\IProductColorDAO.cs" />
-    <Compile Include="Interfaces\IProductImageDAO.cs" />
     <Compile Include="Interfaces\IProductSizeDAO.cs" />
     <Compile Include="Interfaces\IProductPriceDAO.cs" />
     <Compile Include="Interfaces\IProductDAO.cs" />
-    <Compile Include="Interfaces\IUserDAO.cs" />
     <Compile Include="ProductColorDAO.cs" />
     <Compile Include="ProductDAO.cs" />
-    <Compile Include="ProductImageDAO.cs" />
     <Compile Include="ProductPriceDAO.cs" />
     <Compile Include="ProductSizeDAO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UserDAO.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\project_clothes_object\project_clothes_object.csproj">

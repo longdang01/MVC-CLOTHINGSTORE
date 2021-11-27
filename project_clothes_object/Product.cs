@@ -12,7 +12,6 @@ namespace project_clothes_object
         public string product_code { get; set; }
         public string product_name { get; set; }
         public string description { get; set; }
-        public string image_avt { get; set; }
         public string brand { get; set; }
         public string made_in { get; set; }
         public string gender { get; set; }
@@ -20,15 +19,18 @@ namespace project_clothes_object
         public Guid category_id { get; set; }
         public List<ProductColor> list_color { get; set; }
         public ProductPrice price { get; set; }
-        public Product(Guid product_id, string product_code, string product_name,
-            string description, string image_avt, string brand, string made_in, string gender, string status,
-            Guid category_id, List<ProductColor> list_color, ProductPrice price)
+        public Product()
+        {
+
+        }
+        public Product( Guid product_id, string product_code, string product_name,
+               string description, string brand, string made_in, string gender,
+               string status, Guid category_id, List<ProductColor> list_color, ProductPrice price)
         { 
             this.product_id = product_id;
             this.product_code = product_code;
             this.product_name = product_name;
             this.description = description;
-            this.image_avt = image_avt;
             this.brand = brand;
             this.made_in = made_in;
             this.gender = gender;

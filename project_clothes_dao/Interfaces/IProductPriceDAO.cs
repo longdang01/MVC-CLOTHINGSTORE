@@ -9,6 +9,6 @@ namespace project_clothes_dao
 {
     public interface IProductPriceDAO
     {
-        ProductPrice getProductPrice(Guid product_id); 
+        ProductPrice GetProductPrice(Guid product_id); 
     }
 }
