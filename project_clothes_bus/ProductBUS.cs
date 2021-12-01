@@ -11,15 +11,15 @@ namespace project_clothes_bus
     public class ProductBUS : IProductBUS
     {
         public IProductDAO productDAO = new ProductDAO();
-        public ProductList GetProductList(Guid category_id, int page_index, int page_size, string product_name)
+        public ProductList GetProductList(string category_id, int page_index, int page_size, string product_name)
         {
             return productDAO.GetProductList(category_id, page_index, page_size, product_name);
         }
-        public Product GetProductDetail(Guid product_id)
+        public Product GetProductDetail(string product_id)
         {
             return productDAO.GetProductDetail(product_id);
         }
-        public void RemoveProduct(Guid product_id)
+        public void RemoveProduct(string product_id)
         {
             productDAO.RemoveProduct(product_id);
         }

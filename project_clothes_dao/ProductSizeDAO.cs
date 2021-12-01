@@ -11,7 +11,7 @@ namespace project_clothes_dao
     public class ProductSizeDAO : IProductSizeDAO
     {
         public DataHelper dh = new DataHelper();
-        public List<ProductSize> GetProductSizes(Guid product_color_id)
+        public List<ProductSize> GetProductSizes(string product_color_id)
         {
             string query = $" select s.* from TBL_product_size s" +
                            $" left join TBL_product_color c on c.product_color_id = s.product_color_id" +
@@ -22,7 +22,7 @@ namespace project_clothes_dao
             foreach (DataRow row in dt.Rows)
             {
                 ProductSize pro = new ProductSize(
-                    Guid.Parse(row[0].ToString()), Guid.Parse(row[1].ToString()),
+                    row[0].ToString(), row[1].ToString(),
                     row[2].ToString(), int.Parse(row[3].ToString())
                     );
                 l.Add(pro);

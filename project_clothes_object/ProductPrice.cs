@@ -8,17 +8,17 @@ namespace project_clothes_object
 {
     public class ProductPrice
     {
-        public Guid product_price_id { get; set; }
-        public Guid product_id { get; set; }
+        public string product_price_id { get; set; }
+        public string product_id { get; set; }
         public decimal price_current { get; set; }
-        public DateTime date_effect { get; set; }
-        public DateTime? date_expired { get; set; }
+        public string date_effect { get; set; }
+        public string date_expired { get; set; }
         public ProductPrice()
         {
 
         }
-        public ProductPrice(Guid product_price_id, Guid product_id, decimal price_current,
-            DateTime date_effect, DateTime date_expired)
+        public ProductPrice(string product_price_id, string product_id, decimal price_current,
+            string date_effect, string date_expired)
         {
             this.product_price_id = product_price_id;
             this.product_id = product_id;

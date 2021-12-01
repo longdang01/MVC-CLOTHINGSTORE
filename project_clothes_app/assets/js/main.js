@@ -76,16 +76,16 @@ $(window).click(function(e) {
 })
 
 
-// Modal
-$('.btn-user-login').click(function () {
-    $('.modal-login').css('display', 'grid');
-})
+//// Modal
+//$('.btn-user-login').click(function () {
+//    $('.modal-login').css('display', 'grid');
+//})
 
-$('.btn-close-modal').click(function () {
-    $('.modal').css('display', 'none');
-})
+//$('.btn-close-modal').click(function () {
+//    $('.modal').css('display', 'none');
+//})
 
-$('.btn-back').click(function () {
-    $('.modal').css('display', 'none');
-})
+//$('.btn-back').click(function () {
+//    $('.modal').css('display', 'none');
+//})
 

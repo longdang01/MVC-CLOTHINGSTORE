@@ -9,7 +9,7 @@ namespace project_clothes_dao
 {
     public interface IProductSizeDAO
     {
-        List<ProductSize> GetProductSizes(Guid product_id);
+        List<ProductSize> GetProductSizes(string product_id);
 
     }
 }

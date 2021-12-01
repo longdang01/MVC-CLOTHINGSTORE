@@ -42,7 +42,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CategoryBUS.cs" />
+    <Compile Include="ClientBUS.cs" />
     <Compile Include="Interfaces\ICategoryBUS.cs" />
+    <Compile Include="Interfaces\IClientBUS.cs" />
     <Compile Include="Interfaces\IProductBUS.cs" />
     <Compile Include="ProductBUS.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

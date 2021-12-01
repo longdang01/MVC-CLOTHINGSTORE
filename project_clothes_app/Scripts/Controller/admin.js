@@ -22,7 +22,7 @@ function ManageProducts($rootScope, $scope, $http, Upload, $timeout, $document) 
 
     // get category id
     var category_id = localStorage.getItem('category_id');
-    if (category_id == null) category_id = '00000000-0000-0000-0000-000000000000';
+    if (category_id == null) category_id = '';
 
     // get category
     $scope.GetCategoryList = () => {
@@ -79,31 +79,38 @@ function ManageProducts($rootScope, $scope, $http, Upload, $timeout, $document) 
 
     //Handle product (add, update, remove)
     //add product
-    var initProduct = {
-        product_id: "00000000-0000-0000-0000-000000000000",
-        product_code: "",
+    const current_date = new Date();
+    const initProduct = {
+        product_id: "",
         product_name: "",
         description: "",
         brand: "",
         made_in: "",
         gender: "",
         status: "",
-        category_id: "00000000-0000-0000-0000-000000000000",
-        list_color: [],
-        price: {}
+        category_id: "",
     }
    
     $scope.product = initProduct;
 
     $scope.AddProduct = (event) => {
+        initProduct['list_color'] = [];
+        initProduct['price'] = {
+            product_price_id: "",
+            product_id: "",
+            price_current: 0,
+            date_effect: current_date.toString(),
+            date_expired: ""
+        }
+
         $scope.product = initProduct;
-        $scope.product.product_code = generateCodeRandom('PR', $scope.ListProduct.list_product, 'product_code', 4);
+        $scope.product.product_id = generateCodeRandom('PR', $scope.ListProduct.list_product, 'product_id', 4);
         $scope.titleModal = 'Add product';
         $scope.event = event;
     }
 
     $scope.UpdateProduct = (product, event) => {
-        $scope.product = product;
+        $scope.product = _.omit(product, 'list_color');
         $scope.titleModal = 'Update product';
         $scope.event = event;
     }
@@ -122,25 +129,19 @@ function ManageProducts($rootScope, $scope, $http, Upload, $timeout, $document) 
         //}
         //execute event
         if (event === 0) {
-            console.log(product);
             $http(
                 {
                     method: 'POST',
-                    dataType: 'json',
                     url: urlAddProduct,
-                    data: JSON.stringify(product)
+                    data: { product: product }
                 }
             ).then((res) => {
-                console.log('add');
                 $scope.ListProduct.list_product = [product, ...$scope.ListProduct.list_product];
                 $scope.GetCategoryName($scope.ListProduct.list_product);
-
-                //$scope.product = $scope.initProduct;
             }, (err) => {
                 console.log(`Message: ${err}`);
             })
         } else {
-            console.log(product);
             $http(
                 {
                     method: 'POST',
@@ -148,16 +149,10 @@ function ManageProducts($rootScope, $scope, $http, Upload, $timeout, $document) 
                     data: { product: product }
                 }
             ).then((res) => {
-                console.log('updated');
-                const index = $scope.ListProduct.list_product
-                            .findIndex(i => i.product_id === product.product_id);
+                let index = $scope.ListProduct.list_product.findIndex(i => i.product_id === product.product_id);
                 $scope.ListProduct.list_product[index] = product;
-
-                //$scope.ListProduct.list_product.push($scope.product);
-                //$scope.product = null;
             }, (err) => {
-
-                console.log(`Message: ${err.message}`);
+                console.log(`Message: ${err}`);
             })
         }
         //upload file

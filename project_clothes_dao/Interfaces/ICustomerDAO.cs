@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 
 namespace project_clothes_dao
 {
-    public interface IProductColorDAO
+    public interface ICustomerDAO
     {
-        List<ProductColor> GetProductColors(string product_id);
+        Customer Login(string username, string password);
+        void Register(Customer customer);
     }
 }

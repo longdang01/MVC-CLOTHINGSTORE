@@ -20,6 +20,7 @@
 
 .nav-user-list {
     position: absolute;
+    display: none;
     top: 50% !important;
     right: 0;
     padding-top: 0 !important;
@@ -43,6 +44,7 @@
     vertical-align: middle;
     padding: 0 2rem;
     width: 100%;
+    cursor: pointer;
 }
 
 .container {
@@ -303,6 +305,7 @@
 .active {
     display: block;
 }
+
 
 .activated {
     background: #d6d6d6;
@@ -661,7 +664,14 @@
 /* #endregion */
 
 /* Modal */
-.modal {
+.socials-login {
+    display: grid;
+    place-items: center;
+    width: 50px;
+    height: 50px;
+}
+
+/*.modal {
     position: fixed;
     top: 0;
     left: 0;
@@ -771,9 +781,9 @@ input:-webkit-autofill:active {
 }
 
 .btn-login-submit:hover,
-.btn-register-submit:hover {
+.btn-register-submit:hover {*/
     /*background: #cf4319;*/
-}
+/*}
 
 .btn-register-submit {
     margin: 2rem 0;
@@ -835,4 +845,4 @@ input:-webkit-autofill:active {
 
 #modal-cart .btn-close{
     margin: -.5rem auto -.5rem -.5rem;
-}
+}*/

@@ -1,8 +1,25 @@
 ﻿const app = angular.module('App', ['angularUtils.directives.dirPagination']);
 
+//Call 
+app.controller('MenuController', MenuController);
+
 app.controller('ProductController', ProductController);
 
 app.controller('DetailController', DetailController);
+
+app.controller('LoginController', LoginController);
+
+app.controller('RegisterController', RegisterController);
+
+//Function
+function MenuController($rootScope, $scope, $http) {
+    $scope.customer = JSON.parse(localStorage.getItem('customer'));
+
+    $scope.SignOut = () => {
+        localStorage.removeItem('customer');
+        window.location.reload();
+    }
+}
 
 function ProductController($rootScope, $scope, $http) {
     // set up pagination
@@ -15,7 +32,7 @@ function ProductController($rootScope, $scope, $http) {
 
     // get category id
     var category_id = localStorage.getItem('category_id');
-    if (category_id == null) category_id = '00000000-0000-0000-0000-000000000000';
+    if (category_id == null) category_id = '';
 
     // get products 
     const urlGetProductList = '/Shop/GetProductList';
@@ -101,3 +118,52 @@ function DetailController($rootScope, $scope, $http) {
     //}
 }
 
+function LoginController($rootScope, $scope, $http) {
+    const urlGetCustomer = '/Customer/GetCustomer';
+    $scope.close = "";
+    $rootScope.remember = false;
+
+    $scope.login = 0;
+
+    $scope.Login = (username, password) => {
+        console.log(username, password);
+
+        $http(
+            {
+                method: 'GET',
+                url: urlGetCustomer,
+                params: { username, password }
+            }
+        ).then((res) => {
+            if (res.data.login == "0") console.log("Username or password not correct");
+            else {
+                console.log("Login success")
+                $scope.customer = res.data.customer
+                localStorage.setItem('customer', JSON.stringify($scope.customer));
+                window.open('/Home/Index', '_self');
+            }
+        }, (err) => {
+            console.log(`Message: ${err}`);
+        })
+    }
+}
+
+function RegisterController($rootScope, $scope, $http) {
+    const urlRegister = '/Customer/SignUp'
+    $scope.Register = (username, name, phone_number, password) => {
+        console.log(username, name, phone_number, password);
+        $http(
+            {
+                method: 'POST',
+                url: urlRegister,
+                dataType: 'json',
+                data: { username, name, phone_number, password }
+            }
+        ).then(res => {
+            console.log('Register success');
+            window.open('/Customer/Login', '_self');
+        }, err => {
+            console.log(`Message: ${err}`)
+        })
+    }
+}

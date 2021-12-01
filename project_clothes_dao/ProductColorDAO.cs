@@ -11,7 +11,7 @@ namespace project_clothes_dao
     public class ProductColorDAO : IProductColorDAO
     {
         public DataHelper dh = new DataHelper(); 
-        public List<ProductColor> GetProductColors(Guid product_id)
+        public List<ProductColor> GetProductColors(string product_id)
         {
             string query = $"select * from TBL_product_color where product_id = '{product_id}'";
             DataTable dt = dh.getDataTable(query);
@@ -21,10 +21,10 @@ namespace project_clothes_dao
 
             foreach (DataRow row in dt.Rows)
             {
-                List<ProductSize> sizes = productSizeDAO.GetProductSizes(Guid.Parse(row[0].ToString()));
+                List<ProductSize> sizes = productSizeDAO.GetProductSizes(row[0].ToString());
 
                 ProductColor pro = new ProductColor(
-                    Guid.Parse(row[0].ToString()), Guid.Parse(row[1].ToString()),
+                    row[0].ToString(), row[1].ToString(),
                     row[2].ToString(), row[3].ToString(), row[4].ToString(),
                     row[5].ToString(), sizes
                 );

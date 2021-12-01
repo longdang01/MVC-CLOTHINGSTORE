@@ -16,7 +16,7 @@ namespace project_clothes_app.Controllers
         {
             return View();
         }
-        public JsonResult GetProductDetail(Guid product_id)
+        public JsonResult GetProductDetail(string product_id)
         {
             Product p = productBUS.GetProductDetail(product_id);
 

@@ -1,4 +1,4 @@
-﻿<header class="header">
+﻿<header class="header" ng-controller="MenuController">
     <div class="container">
         <nav class="nav d-flex align-items-center justify-content-between">
             <a href="/Home/Index" class="nav-brand d-flex align-items-center text-decoration-none">
@@ -27,11 +27,19 @@
                     <button class="dropdown-toggle btn-user-options"
                             type="button" id="dropdown-user"
                             data-bs-toggle="dropdown"
-                            aria-expanded="false"><i class="ti-user"></i></button>
-                    <ul class="dropdown-menu nav-user-list"
+                            aria-expanded="false">
+                        <i class="ti-user"></i>
+                    </button>
+                    <ul ng-if="!customer" id="nav-options-user" class="dropdown-menu nav-user-list"
                         aria-labelledby="dropdown-user">
-                        <li><a href="#" class="dropdown-item btn-user-login">Đăng nhập</a></li>
-                        <li><a href="#" class="dropdown-item btn-user-register">Đăng ký</a></li>
+                        <li><a href="/Customer/Login" class="dropdown-item btn-user-login">Đăng nhập</a></li>
+                        <li><a href="/Customer/Register" class="dropdown-item btn-user-register">Đăng ký</a></li>
+                    </ul>
+
+                    <ul ng-if="customer" id="nav-options-profile" class="dropdown-menu nav-user-list"
+                        aria-labelledby="dropdown-user">
+                        <li><a class="dropdown-item btn-user-profile">Cài đặt tài khoản</a></li>
+                        <li><a ng-click="SignOut()" class="dropdown-item btn-user-sign-out">Sign Out</a></li>
                     </ul>
                 </div>
             </div>

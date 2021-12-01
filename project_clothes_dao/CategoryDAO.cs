@@ -24,7 +24,7 @@ namespace project_clothes_dao
             List<Category> l = new List<Category>();
             foreach (DataRow dr in dt.Rows)
             {
-                Category p = new Category(Guid.Parse(dr[0].ToString()), dr[1].ToString());
+                Category p = new Category(dr[0].ToString(), dr[1].ToString());
                 l.Add(p);
             }
             return l;

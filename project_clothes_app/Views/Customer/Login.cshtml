@@ -1,0 +1,61 @@
+﻿
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_LayOut.cshtml";
+}
+
+<div class="container" ng-controller="LoginController">
+    <div style="margin-top: 70px; height: 565px" class="row">
+        <div class="col-md-6" style="padding: 3rem 0 0 0">
+            <h3 style="margin-bottom: 1rem">Login</h3>
+            <p style="color: grey; margin-bottom: 3rem; font-size: 1.4rem">Free login to use more features</p>
+            <div style="width: 80%">
+                <div>
+                    <div class="mb-3">
+                        <label class="form-label">Username</label>
+                        <input ng-model="username"
+                               style="height: 40px; font-size: 1.4rem"
+                               type="text" class="form-control" placeholder="Enter your username ..." required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Password</label>
+                        <input ng-model="password"
+                               style="height: 40px; font-size: 1.4rem"
+                               type="password" class="form-control" placeholder="Enter your password ..." required>
+                    </div>
+
+                    <div style="margin: 1.5rem 0" class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <input type="checkbox" id="rmb-password" class="form-check-input" value="" />
+                            <label for="rmb-password" class="form-check-label">Remember password</label>
+                        </div>
+                        <a href="#">Forgot your password ?</a>
+                    </div>
+                </div>
+                <button ng-click="Login(username, password)"style="width: 100%" class="btn btn-dark">Login</button>
+            </div>
+            <div style="margin: 2rem 0">Or</div>
+            <div>
+                <ul class="d-flex align-item-center">
+                    <li class="me-3">
+                        <a href="#" class="socials-login" style="
+                                    color: #fff;
+                                    background: #2374e1;
+                                    ">
+                            <i class="ti-facebook"></i>
+                        </a></li>
+                    <li><a href="#" class="socials-login"
+                           style="color: #fff; background : var(--primaryColor);"
+                           ><i class="fab fa-google"></i></a></li>
+                </ul>
+                <div class="mt-5">Do not have an account? <a href="/User/Register" style="color: var(--primaryColor)">Register here</a></div>
+
+            </div>
+        </div>
+        <div class="col-md-6">
+            <img style="width: 100%; height: 100%; object-fit: cover" src="~/assets/images/shop.jpg" alt="Alternate Text" />
+        </div>
+    </div>
+</div>
+
