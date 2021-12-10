@@ -157,9 +157,10 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeAdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\ManageProductsController.cs" />
+    <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProductDetailController.cs" />
-    <Compile Include="Controllers\ShopController.cs" />
+    <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -3834,6 +3835,7 @@
     <Content Include="assets\core\lib\own-carousel\test\unit\core.js" />
     <Content Include="assets\css\admin.css" />
     <Content Include="assets\css\base.css" />
+    <Content Include="assets\css\cart.css" />
     <Content Include="assets\css\shop.css" />
     <Content Include="assets\css\style.css" />
     <Content Include="assets\html\detail_product.html" />
@@ -5411,11 +5413,13 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_Header.cshtml" />
     <Content Include="Views\Shared\_Footer.cshtml" />
-    <Content Include="Views\Shop\Index.cshtml" />
+    <Content Include="Views\Product\Index.cshtml" />
     <Content Include="Views\ProductDetail\Index.cshtml" />
     <Content Include="Scripts\version.json" />
     <Content Include="Views\Customer\Login.cshtml" />
     <Content Include="Views\Customer\Register.cshtml" />
+    <Content Include="Views\Cart\Index.cshtml" />
+    <Content Include="Views\Shared\_MiniCart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

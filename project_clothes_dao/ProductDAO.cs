@@ -44,6 +44,27 @@ namespace project_clothes_dao
             }
             return pl;
         }
+        public List<Product> GetList(SqlDataReader dr)
+        {
+            List<Product> l = new List<Product>();
+            ProductPriceDAO productPriceDAO = new ProductPriceDAO();
+            ProductColorDAO productColorDAO = new ProductColorDAO();
+            while (dr.Read())
+            {
+                ProductPrice price = productPriceDAO.GetProductPrice(dr[0].ToString());
+                List<ProductColor> colors = productColorDAO.GetProductColors(dr[0].ToString());
+
+                Product p = new Product(
+                     dr[0].ToString(), dr[1].ToString(),
+                     dr[2].ToString(), dr[3].ToString(),
+                     dr[4].ToString(), dr[5].ToString(),
+                     dr[6].ToString(), dr[7].ToString(),
+                     colors, price
+                    );
+                l.Add(p);
+            }
+            return l;
+        }
         public Product GetProductDetail(string product_id)
         {
             string query = $" select * from TBL_product p" +
@@ -51,6 +72,30 @@ namespace project_clothes_dao
 
             DataTable dt = dh.getDataTable(query);
             return ToList(dt)[0];
+        }
+        public List<Product> GetNewArrival(int rows)
+        {
+            SqlDataReader dr = dh.storeReaders("PROC_NEWARRIVAL", rows);
+
+            return GetList(dr);
+        }
+        public List<Product> GetHot(int rows)
+        {
+            SqlDataReader dr = dh.storeReaders("PROC_HOT", rows);
+
+            return GetList(dr);
+        }
+        public List<Product> GetBestSeller(int rows)
+        {
+            SqlDataReader dr = dh.storeReaders("PROC_BESTSELLER", rows);
+
+            return GetList(dr);
+        }
+        public List<Product> GetSale(int rows)
+        {
+            SqlDataReader dr = dh.storeReaders("PROC_SALE", rows);
+
+            return GetList(dr);
         }
         public void RemoveProduct(string product_id)
         {

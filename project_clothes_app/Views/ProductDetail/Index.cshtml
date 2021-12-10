@@ -9,7 +9,7 @@
         <div class="row">
             <div class="col-md-6 p-0">
                 <div class="vertical-slider-container">
-                    <ul id="vertical-slider" >
+                    <ul class="product-img-gallery vertical-slider">
                         <li ng-repeat="image in colors[index].images track by $index"
                             data-thumb="../{{ image }}">
                             <img ng-src="../{{ image }}"/>
@@ -22,12 +22,14 @@
                 <h3 class="product-detail-price">{{ product.price.price_current | currency: "" : 0}}đ</h3>
                 <div class="my-5">
                     <div>
-                        <span class="d-inline-block
-                                product-detail-lbl">Tình trạng:</span><span class="stocking">Còn hàng</span>
+                        <span class="d-inline-block product-detail-lbl">Tình trạng:
+                        </span><span class="stock hide">Còn hàng 
+                        </span><span class="out-of-stock hide">Hết hàng
+                        </span><span class="limit-stock hide">Chỉ còn {{ maxQuantity }} chiếc</span>
                     </div>
                     <div>
                         <span class="d-inline-block
-                                product-detail-lbl">Mã sản phẩm:</span><span>{{ product.product_code }}</span>
+                                product-detail-lbl">Mã sản phẩm:</span><span>{{ product.product_id }}</span>
                     </div>
                 </div>
                 <ul>
@@ -35,6 +37,7 @@
                         <span class="product-detail-lbl">Màu sắc:</span>
                         <ul class="d-flex align-items-center">
                             <li ng-repeat="color in colors"
+                                ng-click="changeColor($index, color)"
                                 style="background: {{ color.hex }}"
                                 class="d-flex align-items-center product-detail-color">
                             </li>
@@ -44,6 +47,7 @@
                         <span class="product-detail-lbl">Size:</span>
                         <ul class="d-flex align-items-center">
                             <li ng-repeat="size in colors[index].sizes"
+                                ng-click="changeSize($index, size)"
                                 class="d-flex align-items-center
                                        product-detail-size">
                                 {{ size.size }}
@@ -52,11 +56,10 @@
                     </li>
                     <li class="d-flex align-items-center mb-4">
                         <span class="product-detail-lbl">Số lượng</span>
-                        <div class="d-flex align-items-center">
+                        <div class="d-flex align-items-center amount">
                             <input type="text" class="product-amount-sub" value="-" readonly>
                             <input type="text" class="product-detail-amount" value="1" readonly>
                             <input type="text" class="product-amount-plus" value="+" readonly>
-
                         </div>
                     </li>
                 </ul>
@@ -65,7 +68,12 @@
                     <span>Thêm vào mục yêu thích</span>
                 </div>
                 <div style="margin: 3rem 0">
-                    <button class="btn btn-dark btn-add-to-cart">Thêm vào giỏ hàng</button>
+                    <button ng-click="
+                            addToCart(product.product_id, product.product_name,
+                            product.price.price_current, colors[index].images[0]
+                            )"
+                            class="btn btn-dark btn-add-to-cart">
+                    Thêm vào giỏ hàng</button>
                     <button class="btn btn-dark btn-buy-now">Mua ngay</button>
                 </div>
             </div>
@@ -73,8 +81,8 @@
 
         <div style="margin: 0 0 8rem 0">
             <span class="label-detail">Mô tả sản phẩm</span>
-            <p ng-if="product.brand">{{product.brand}}</p>
-            <p ng-if="product.made_in">{{product.made_in}}</p>
+            <p ng-if="product.brand">Brand: {{product.brand}}</p>
+            <p ng-if="product.made_in">Made in: {{product.made_in}}</p>
             <p></p>
             <p class="product-detail-description">
                 {{ product.description }}

@@ -1,0 +1,109 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div style="margin-top: 70px" class="cart-wrap" ng-controller="CartController">
+    <div class="container">
+        <div class="row py-5">
+            <div class="cart col-md-9">
+                <div class="d-flex align-items-center justify-content-between mb-5">
+                    <div class="d-flex flex-column justify-content-center">
+                        <h3>Giỏ hàng</h3>
+                        <p style="color: grey; margin-bottom: 0">{{ totalItems }} sản phẩm</p>
+                    </div>
+                    <a href="/Product/Index"
+                       @*ng-click="continueShopping()"*@
+                       style="" 
+                       class="d-flex align-items-center h-100">
+                        <i class="ti-arrow-left me-2"></i>
+                        <span>Continue Shopping</span>
+                    </a>
+                </div>
+
+                <div class="cart-content">
+                    <div ng-if="cartEmpty">
+                        <h3>Hiện chưa có sản phẩm</h3>
+                        @*<button class="btn btn-dark">Tiếp tục mua hàng</button>*@
+                    </div>
+                    <div ng-if="!cartEmpty" class="cart-product">
+                        <div ng-repeat="product in cart.listCartDetail" class="product">
+                            <div class="row">
+                                <div class="col-md-9">
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <a href="/ProductDetail/Index">
+                                                <img ng-src="../{{ product.image }}" ng-click="GoToDetail(product)" class="product-image" />
+                                            </a>
+                                        </div>
+                                        <div class="col-md-6 ps-0">
+                                            <div class="d-flex flex-column justify-content-between">
+                                                <h3 class="product-name fw-bold text-uppercase fs-4">
+                                                    <a href="/ProductDetail/Index" ng-click="GoToDetail(product)">
+                                                        {{ product.product_name }}
+                                                    </a>
+                                                </h3>
+                                                <div style="color: grey;" class="fs-4">
+                                                    <span>{{ product.color }}</span>
+                                                    <span>/</span>
+                                                    <span>{{ product.size }}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="d-flex justify-content-center align-items-center amount">
+                                                <input type="text" 
+                                                       ng-click="updateCart($index, product, 2)"
+                                                       class="product-amount-sub" value="-" readonly>
+                                                <input type="text" class="product-detail-amount" value="{{ product.quantity }}" readonly>
+                                                <input type="text" 
+                                                       ng-click="updateCart($index, product, 1)"
+                                                       class="product-amount-plus" value="+" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2 text-center">
+                                            <span style="color: #767676;" class="product-price">{{ product.price | currency: "" : 0 }}đ</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="row">
+                                        <div class="col-md-10">
+                                            <span>Thành tiền: </span>
+                                            <span class="fw-bold">{{ product.price * product.quantity | currency: "" : 0 }}đ</span>
+                                        </div>
+                                        <div class="col-md-2 text-start">
+                                            <a href="#" class="fs-3" ng-click="removeCartDetail(product)"><i class="ti-trash"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="checkout col-md-3">
+                <div>
+                    <div style="height: 50px; background: #dddddd"
+                         class="d-flex align-items-center
+                         justify-content-center fw-bold mb-3">
+                        <h3 class="mb-0">Thông tin đơn hàng</h3>
+                    </div>
+                    <div>
+                        <div style="border-bottom: 1px solid #d6d6d6; padding: 1.5rem 0"
+                             class="d-flex justify-content-between align-items-center mb-3">
+                            <span>Tổng tiền</span>
+                            <span class="product-total fw-bold">{{ total | currency: "" : 0 }}đ</span>
+                        </div>
+                    </div>
+                    <button class="btn btn-dark w-100">Thanh toán</button>
+                </div>
+            </div>
+        </div>
+    </div> 
+
+</div>
+

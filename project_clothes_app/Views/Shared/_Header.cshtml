@@ -13,14 +13,14 @@
                 <li class="nav-item"><a href="#" class="nav-link">Journal</a></li>
             </ul>
 
-            <div class="nav-options d-flex align-items-center">
-                <div class="nav-cart" data-bs-toggle="modal" data-bs-target="#modal-cart">
+            <div class="nav-options d-flex align-items-center" ng-controller="CartController">
+                <div class="nav-cart" @*data-bs-toggle="modal" data-bs-target="#modal-cart"*@>
                     <div class="d-flex">
                         <a href="#" class="cart-box text-decoration-none">
                             <i class="ti-bag"></i>
                         </a>
                         <a href="#" style="background: black; color: #fff;"
-                           class="cart-amount text-decoration-none">0</a>
+                           class="cart-amount text-decoration-none">{{ totalItems }}</a>
                     </div>
                 </div>
                 <div class="nav-user dropdown position-relative">

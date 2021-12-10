@@ -1,0 +1,64 @@
+﻿<div class="mini-cart">
+    <div class="mini-cart-wrap">
+        <div class="d-flex justify-content-between align-items-center" style="margin-bottom: 3rem">
+            <h3>Giỏ hàng</h3>
+            <a href="#" class="close-mini-cart"><i class="ti-close"></i></a>
+        </div>
+        <div class="mini-cart-content" ng-controller="CartController">
+            <div ng-if="cartEmpty" style="height: 360px">
+                <h3>Hiện chưa có sản phẩm</h3>
+            </div>
+            <div ng-if="!cartEmpty" class="mini-cart-product">
+                <div class="row" style="margin-bottom: 5rem; overflow-y: scroll" ng-repeat="product in cart.listCartDetail">
+                    <div class="col-md-3" style="width: 90px">
+                        <a href="/ProductDetail/Index">
+                            <img ng-src="../{{ product.image }}" ng-click="GoToDetail(product)" class="product-image" />
+                        </a>
+                    </div>
+                    <div class="col-md-8 ps-0" style="width: 300px">
+                        <h3 class="product-name fw-bold text-uppercase fs-4">
+                            <a href="/ProductDetail/Index" 
+                               style="font-size: 1.4rem"
+                               ng-click="GoToDetail(product)">
+                                {{ product.product_name }}
+                            </a>
+                        </h3>
+                        <div style="color: grey;" class="fs-5 mb-2">
+                            <span>{{ product.color }}</span>
+                            <span>/</span>
+                            <span>{{ product.size }}</span>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <input type="text" 
+                                   class="mini-product-amount"
+                                   style="border-left: 1px solid #cbcbcb;
+                                          border-right: 1px solid #cbcbcb; cursor: auto"
+                                   value="{{ product.quantity }}" readonly>
+                            <span style="color: #767676;" class="product-price">{{ product.price | currency: "" : 0 }}đ</span>
+                        </div>
+                    </div>
+                    <div class="col-md-1 text-end pe-0" style="width: 35px;">
+                            <a href="#" class="fs-3" ng-click="removeCartDetail(product)"><i class="ti-trash"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="checkout" style="padding: 0; margin-top: 5rem">
+                <div>
+                    <div>
+                        <div style="border-bottom: 1px solid #d6d6d6; padding: 1.5rem 0"
+                             class="d-flex justify-content-between align-items-center w-100 mb-3">
+                            <span>Tổng tiền</span>
+                            <span class="product-total fw-bold">{{ total | currency: "" : 0 }}đ</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <a href="/Cart/Index" class="btn btn-dark col-md-5" style="width: 220px">Xem giỏ hàng</a>
+                        <a href="#" class="btn btn-dark col-md-5" style="width: 220px; margin-left: auto">Thanh toán</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="overlay"></div>
+</div>

@@ -19,6 +19,22 @@ namespace project_clothes_bus
         {
             return productDAO.GetProductDetail(product_id);
         }
+        public List<Product> GetNewArrival(int rows)
+        {
+            return productDAO.GetNewArrival(rows);
+        }
+        public List<Product> GetHot(int rows)
+        {
+            return productDAO.GetHot(rows);
+        }
+        public List<Product> GetBestSeller(int rows)
+        {
+            return productDAO.GetBestSeller(rows);
+        }
+        public List<Product> GetSale(int rows)
+        {
+            return productDAO.GetSale(rows);
+        }
         public void RemoveProduct(string product_id)
         {
             productDAO.RemoveProduct(product_id);

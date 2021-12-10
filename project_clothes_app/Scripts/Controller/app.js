@@ -1,5 +1,6 @@
 ﻿const app = angular.module('App', ['angularUtils.directives.dirPagination']);
 
+"use strict"
 //Call 
 app.controller('MenuController', MenuController);
 
@@ -7,9 +8,13 @@ app.controller('ProductController', ProductController);
 
 app.controller('DetailController', DetailController);
 
+app.controller('CartController', CartController);
+
 app.controller('LoginController', LoginController);
 
 app.controller('RegisterController', RegisterController);
+
+app.controller('SlideController', SlideController);
 
 //Function
 function MenuController($rootScope, $scope, $http) {
@@ -19,6 +24,69 @@ function MenuController($rootScope, $scope, $http) {
         localStorage.removeItem('customer');
         window.location.reload();
     }
+}
+
+function SlideController($rootScope, $scope, $http) {
+    const urlGetNewArrival = '/Product/GetNewArrival';
+    const urlGetHot = '/Product/GetHot';
+    const urlGetBestSeller = '/Product/GetBestSeller';
+    const urlGetSale = '/Product/GetSale';
+
+    //numbers of item in slide product
+    const rows = 12;
+
+    //Get newarrival
+    $http({
+            method: 'GET',
+            url: urlGetNewArrival,
+            params: { rows }
+        }
+    ).then(res => {
+        console.log(res.data);
+        $scope.productNewArrival = res.data;
+    }, err => {
+        console.log(`Message: ${err}`);
+    })
+
+    //Get hot
+    $http({
+        method: 'GET',
+        url: urlGetHot,
+        params: { rows }
+    }
+    ).then(res => {
+        console.log(res.data);
+        $scope.productHot = res.data;
+    }, err => {
+        console.log(`Message: ${err}`);
+    })
+
+    //Get best seller
+    $http({
+        method: 'GET',
+        url: urlGetBestSeller,
+        params: { rows }
+    }
+    ).then(res => {
+        console.log(res.data);
+        $scope.productBestSeller = res.data;
+    }, err => {
+        console.log(`Message: ${err}`);
+    })
+
+    //Get sale
+    $http({
+        method: 'GET',
+        url: urlGetSale,
+        params: { rows }
+    }
+    ).then(res => {
+        console.log(res.data);
+        $scope.productSale = res.data;
+    }, err => {
+        console.log(`Message: ${err}`);
+    })
+
 }
 
 function ProductController($rootScope, $scope, $http) {
@@ -35,7 +103,7 @@ function ProductController($rootScope, $scope, $http) {
     if (category_id == null) category_id = '';
 
     // get products 
-    const urlGetProductList = '/Shop/GetProductList';
+    const urlGetProductList = '/Product/GetProductList';
     $scope.GetProductList = (index) => {
         $http(
         {
@@ -63,8 +131,127 @@ function ProductController($rootScope, $scope, $http) {
 }
 
 function DetailController($rootScope, $scope, $http) {
-    var product_detail_id = localStorage.getItem('product_detail_id');
+    $scope.index = 0;
+    $scope.indexSize = 0; 
 
+    const product_detail_id = localStorage.getItem('product_detail_id');
+    const customer = JSON.parse(localStorage.getItem('customer')) ?? null;
+
+
+    //handle change color, size, image
+    angular.element(document).ready(function () {
+        const colorItem = $('li.product-detail-color');
+        const sizeItem = $('li.product-detail-size');
+
+        colorItem.first().addClass('selectColor');
+        sizeItem.first().addClass('selectSize');
+
+        checkQuantity();
+
+        //increase, decrease
+        $('.product-amount-plus').click(function () {
+            handlingAmount(this, 'plus');
+        })
+
+        $('.product-amount-sub').click(function () {
+            handlingAmount(this, 'sub');
+        })
+
+        //Slider
+        let isOnlyImage;
+        let slider = runSlider();
+
+        $scope.changeColor = (index, color) => {
+            //console.log(index);
+            //console.log(color);
+            $scope.selectedColor = color.color;
+
+            //refresh thumb slider
+            slider.destroy();
+            slider = runSlider();
+
+            $scope.index = index;
+
+            $('li.product-detail-color').removeClass('selectColor');
+            $(`li:nth-child(${index + 1}).product-detail-color`).addClass('selectColor');
+
+            angular.element(document).ready(function () {
+                let hasCurrentSize = $.grep(color.sizes, function (el) {
+                    return $scope.currentSize.size === el.size;
+                });
+                console.log(hasCurrentSize)
+
+                if (hasCurrentSize.length) $(`li:nth-child(${$scope.indexSize + 1}).product-detail-size`).addClass('selectSize');
+                else $(`li:nth-child(1).product-detail-size`).addClass('selectSize');
+            })
+            checkQuantity();
+        }
+
+        $scope.changeSize = (index, size) => {
+            //console.log(index);
+            //console.log(size);
+            $scope.selectedSize = size.size;
+
+            $scope.maxQuantity = size.quantity;
+            $scope.currentSize = size;
+            $scope.indexSize = index;
+            $('li.product-detail-size').removeClass('selectSize');
+            $(`li:nth-child(${index + 1}).product-detail-size`).addClass('selectSize');
+            checkQuantity();
+        }
+
+        $scope.addToCart = (product_id, product_name, price, image) => {
+            if (customer) {
+                const cart = { cart_id: "", customer_id: customer.customer_id };
+
+                const date = new Date().toJSON().slice(0, 10);
+                const urlAddToCart = '/Cart/AddToCart';
+                const quantity = $('.product-detail-amount').val() ?? 1;
+
+                const cartDetail = {
+                    cart_detail_id: "",
+                    cart_id: "",
+                    product_id,
+                    product_name,
+                    image,
+                    color: $scope.selectedColor,
+                    size: $scope.selectedSize,
+                    price,
+                    quantity: quantity,
+                    date_add: date,
+                    status: 1,
+                }
+                console.log(cartDetail);
+                console.log($scope.selectedColor)
+
+                $http({
+                    method: 'POST',
+                    url: urlAddToCart,
+                    data: { cart, cartDetail }
+                }).then(res => {
+                    //angular.element(document).ready(function () {
+                    let cartAmount = Number($('.cart-amount').text());
+                    let detailAmount = Number($('.product-detail-amount').val());
+
+                    $('.cart-amount').text(cartAmount + detailAmount);
+                    //})
+                    //reload carts
+                    $rootScope.GetCarts();
+                    $('.mini-cart-wrap').toggleClass('open');
+                    $('.mini-cart .overlay').toggleClass('show');
+
+                    console.log(`Status: ${res.status}`);
+                }, err => {
+                    console.log(`Message: ${err}`);
+                })
+            } else {
+                window.open('/Customer/Login', '_self');
+            }
+        }
+        
+    });
+
+    //get selected product
     $http(
         {
             method: 'GET',
@@ -73,7 +260,6 @@ function DetailController($rootScope, $scope, $http) {
         }
     ).then((res) => {
         $scope.product = res.data;
-        $scope.index = 0;
 
         //init 
         const colors = [];
@@ -87,7 +273,12 @@ function DetailController($rootScope, $scope, $http) {
                 sizes: []
             }
             // get images    
-            let listImages = (item.images) ? [item.avatar, ...item.images.split(', ')] : [item.avatar, item.avatar];
+            //let listImages = (item.images) ? [item.avatar, ...item.images.split(', ')] : [item.avatar, item.avatar];
+            let listImages = (item.images) ? [item.avatar, ...item.images.split(', ')] : [item.avatar];
+
+            //show thumb when only one image
+            isOnlyImage = (listImages.length === 1) ? true : false;
+           
 
             // get sizes
             let listSizes = [];
@@ -108,14 +299,195 @@ function DetailController($rootScope, $scope, $http) {
         })
 
         $scope.colors = colors;
+        $scope.currentSize = $scope.colors[$scope.index].sizes[$scope.indexSize];
+        $scope.maxQuantity = $scope.colors[$scope.index].sizes[$scope.indexSize].quantity;
+
+        $scope.selectedColor = $scope.colors[0].color;
+        $scope.selectedSize = $scope.colors[0].sizes[0].size;
+
         console.log($scope.colors);
+
     }, (err) => {
         console.log(`Message: ${err}`);
     })
 
+    function checkQuantity() {
+        let size, amount;
+        $('li.product-detail-size').each((index, el) => {
+            if ($(el).hasClass('selectSize')) size = el.innerText;
+        })
+
+        if ($scope.colors[$scope.index].sizes) {
+            $scope.colors[$scope.index].sizes.forEach(el => {
+            if (el.size === size) {
+                if (el.quantity > 0) {
+                    $('.stock').removeClass('hide');
+                    $('.out-of-stock').addClass('hide');
+                    $('.limit-stock').addClass('hide');
+                } else {
+                    $('.product-detail-amount').val(1);
+                    $('.stock').addClass('hide');
+                    $('.out-of-stock').removeClass('hide');
+                    $('.limit-stock').addClass('hide');
+                }
+            }
+        })
+        }
+
+    }
+
+    //Functions handle
+    function handlingAmount(e, sign) {
+        let currentAmount = Number($(e).siblings('.product-detail-amount').val());
+        if (sign == 'plus') {
+            if ($('.out-of-stock').hasClass('hide')) {
+
+                if (currentAmount < $scope.maxQuantity) {
+                    currentAmount += 1;
+                } else {
+                    $('.stock').addClass('hide');
+                    $('.out-of-stock').addClass('hide');
+                    $('.limit-stock').removeClass('hide');
+                }
+            }
+        } else {
+            if (currentAmount > 1) {
+                $('.stock').removeClass('hide');
+                $('.out-of-stock').addClass('hide');
+                $('.limit-stock').addClass('hide');
+                currentAmount -= 1;
+            }
+        }
+        $(e).siblings('.product-detail-amount').val(currentAmount);
+    }
     //function getUniqueListBy(arr, key) {
     //    return [...new Map(arr.map(item => [item[key], item])).values()]
     //}
+}
+
+function CartController($rootScope, $scope, $http, $window) {
+    $scope.cartEmpty = true;
+    $scope.total = 0;
+    $scope.totalItems = 0;
+
+    const cartContent = $('.cart-content');
+    const cartAmount = $('.cart-amount');
+    const customer = JSON.parse(localStorage.getItem('customer'));
+    const urlGetCarts = '/Cart/GetCart';
+
+    let listCart;
+    if (customer) {
+        $rootScope.GetCarts = () => {
+            $http({
+                method: 'GET',
+                url: urlGetCarts,
+                params: { customer_id: customer.customer_id }
+            }).then(res => {
+                $scope.cart = res.data.cart;
+                //console.log(res.data.cart)
+                if ($scope.cart) {
+                    listCart = $scope.cart.listCartDetail;
+
+                    if ($scope.cart.listCartDetail.length != 0) $scope.cartEmpty = false;
+                    $scope.total = calcTotal(listCart);
+                    $scope.totalItems = calcTotalItems(listCart);
+                }
+            });
+        }
+        $rootScope.GetCarts();
+
+        angular.element(document).ready(function () {
+            $('.cart-box, .cart-amount').click(() => {
+                $rootScope.GetCarts();
+            })
+        })
+    }
+
+    $scope.continueShopping = () => {
+        $window.history.back();
+    }
+
+    function calcTotal() {
+        let res = 0;
+        listCart.forEach(item => {
+            res += item.price * item.quantity;
+        })
+        return res;
+    }
+
+    function calcTotalItems() {
+        let res = 0;
+        listCart.forEach(item => {
+            res += item.quantity;
+        })
+        return res;
+    }
+
+    //increase/decreate
+    const urlUpdateCart = '/Cart/UpdateQuantity';
+    $scope.updateCart = (index, product, event) => {
+
+        if (event == 1) {
+            product.quantity += 1
+        } else { 
+            if (product.quantity > 1)
+                product.quantity -= 1;
+        }
+
+        $http({
+            method: 'POST',
+            url: urlUpdateCart,
+            data: { cartDetail: product }
+        }).then(res => {
+            console.log(`Status: ${res.status}`);
+        }, err => {
+            console.log(`Message: ${err}`);
+        });
+
+        $scope.total = calcTotal(listCart);
+        $scope.totalItems = calcTotalItems(listCart);
+
+        angular.element(document).ready(function () {
+            $('.cart-amount').text($scope.totalItems);
+            $scope.totalItems = calcTotalItems(listCart);
+        })
+    }
+
+    const urlRemoveCartDetail = '/Cart/RemoveCartDetail';
+    $scope.removeCartDetail = (product) => {
+        $http(
+            {
+                method: 'POST',
+                datatype: 'json',
+                url: urlRemoveCartDetail,
+                data: { cart_detail_id: product.cart_detail_id }
+            }
+
+        ).then((res) => {
+            if ($scope.cart) {
+                if ($scope.cart.listCartDetail.length == 1)
+                    $scope.cartEmpty = true;
+
+                //listCart = $scope.cart.listCartDetail;
+                var index = $scope.cart.listCartDetail.indexOf(product);
+                $scope.cart.listCartDetail.splice(index, 1);
+
+                //if ($scope.cart.listCartDetail.length != 0) $scope.cartEmpty = false;
+            }
+            $scope.total = calcTotal(listCart);
+            $scope.totalItems = calcTotalItems(listCart);
+
+            angular.element(document).ready(function () {
+                $('.cart-amount').text($scope.totalItems);
+                $scope.totalItems = calcTotalItems(listCart);
+            })
+        }, (err) => {
+            console.log(`Messge: ${err}`);
+        })
+    }
+
+    // go to product detail
+    $scope.GoToDetail = (product) => localStorage.setItem('product_detail_id', product.product_id)
 }
 
 function LoginController($rootScope, $scope, $http) {
@@ -167,3 +539,33 @@ function RegisterController($rootScope, $scope, $http) {
         })
     }
 }
+
+function runSlider() {
+    const options = {
+        gallery: true,
+        item: 1,
+        /*keyPress: true,*/
+        vertical: true,
+        enableDrag: true,
+        thumbItem: 3,
+        thumbMargin: 10,
+        easing: 'linear',
+
+        onSliderLoad: function () {
+            $(window).resize();
+        }, onAfterSlide: function () {
+            $(window).resize();
+        }
+    }
+
+    if (isOnlyImage) {
+        options['autoWidth'] = true;
+
+        angular.element(document).ready(function () {
+            $('.lSPager').addClass('hideThumb')
+        })
+
+    }
+    return $('.vertical-slider').lightSlider(options);
+}
+

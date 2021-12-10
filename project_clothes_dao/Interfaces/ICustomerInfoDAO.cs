@@ -10,6 +10,8 @@ namespace project_clothes_dao
     public interface ICustomerInfoDAO
     {
         CustomerInfo GetCustomerInfo(string customer_id);
+        List<CustomerInfo> GetCustomerInfos();
+
 
     }
 }

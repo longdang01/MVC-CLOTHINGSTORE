@@ -61,9 +61,13 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CartDAO.cs" />
+    <Compile Include="CartDetailDAO.cs" />
     <Compile Include="CategoryDAO.cs" />
     <Compile Include="CustomerInfoDAO.cs" />
     <Compile Include="DataHelper.cs" />
+    <Compile Include="Interfaces\ICartDAO.cs" />
+    <Compile Include="Interfaces\ICartDetailDAO.cs" />
     <Compile Include="Interfaces\ICategoryDAO.cs" />
     <Compile Include="Interfaces\ICustomerInfoDAO.cs" />
     <Compile Include="Interfaces\IProductColorDAO.cs" />

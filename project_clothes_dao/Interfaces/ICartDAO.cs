@@ -7,10 +7,11 @@ using System.Threading.Tasks;
 
 namespace project_clothes_dao
 {
-    public interface ICustomerDAO
+    public interface ICartDAO
     {
-        List<Customer> GetCustomers();
-        Customer Login(string username, string password);
-        void Register(Customer customer);
+        Cart GetCart(string customer_id);
+        List<Cart> GetCarts();
+        void AddCart(Cart cart);
+
     }
 }

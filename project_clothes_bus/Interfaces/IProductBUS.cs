@@ -14,5 +14,9 @@ namespace project_clothes_bus
         void RemoveProduct(string product_id);
         void AddProduct(Product product);
         void UpdateProduct(Product product);
+        List<Product> GetNewArrival(int rows);
+        List<Product> GetHot(int rows);
+        List<Product> GetBestSeller(int rows);
+        List<Product> GetSale(int rows);
     }
 }
