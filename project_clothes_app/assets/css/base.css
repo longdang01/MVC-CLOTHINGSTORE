@@ -26,6 +26,10 @@ a {
     text-decoration: none;
 }
 
+.no-idea {
+    background: red;
+}
+
 .overlay {
     position: absolute;
     top: 0;
