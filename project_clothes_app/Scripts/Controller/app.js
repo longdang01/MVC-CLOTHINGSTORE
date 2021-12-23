@@ -1,4 +1,6 @@
-﻿const app = angular.module('App', ['angularUtils.directives.dirPagination']);
+﻿//define
+const app = angular.module('App', ['angularUtils.directives.dirPagination']);
+const apiCity = '/Scripts/Data/Datacity.json';
 
 "use strict"
 //Call 
@@ -9,6 +11,10 @@ app.controller('ProductController', ProductController);
 app.controller('DetailController', DetailController);
 
 app.controller('CartController', CartController);
+
+app.controller('OrderController', OrderController);
+
+app.controller('PaymentController', PaymentController);
 
 app.controller('LoginController', LoginController);
 
@@ -32,15 +38,29 @@ function SlideController($rootScope, $scope, $http) {
     const urlGetBestSeller = '/Product/GetBestSeller';
     const urlGetSale = '/Product/GetSale';
 
+    // Set up slider
+    function setupSlider() {
+        $('.product-carousel').owlCarousel({
+            loop: true,
+            margin: 20,
+            nav: true,
+            items: 4,
+            navText: ["<a href='javascript:void(0)' class='btn-slide'><i class='ti-angle-left'></i></a>",
+                "<a href='javascript:void(0)' class='btn-slide'><i class='ti-angle-right'></i></a>"],
+            dots: false
+        });
+    };
+
+    setTimeout(setupSlider, 500);
     //numbers of item in slide product
-    const rows = 12;
+    const rows = 4;
 
     //Get newarrival
     $http({
-            method: 'GET',
-            url: urlGetNewArrival,
-            params: { rows }
-        }
+        method: 'GET',
+        url: urlGetNewArrival,
+        params: { rows }
+    }
     ).then(res => {
         console.log(res.data);
         $scope.productNewArrival = res.data;
@@ -87,31 +107,70 @@ function SlideController($rootScope, $scope, $http) {
         console.log(`Message: ${err}`);
     })
 
+    // go to product detail
+    $scope.GoToDetail = (product) => localStorage.setItem('product_detail_id', product.product_id)
 }
 
 function ProductController($rootScope, $scope, $http) {
+    // init sort
+    $scope.sortColumn = '';
+    $scope.reverse = true;
+    $scope.direct = ''; // or Descending
+
+    // handle sort
+    $scope.SortBy = () => {
+        const value = $scope.valueSort.split('|');
+        $scope.sortColumn = value[0];
+        $scope.direct = value[1];
+        if ($scope.direct === 'Ascending') {
+            $scope.reverse = false;
+            $scope.direct = 'Descending';
+        }
+        else {
+            $scope.reverse = true;
+            $scope.direct = 'Ascending';
+        }
+    }
+
     // set up pagination
     $scope.max_size = 3;
     $scope.total_count = 0;
     $scope.page_index = 1;
     $scope.page_size = 6; //number of items per page
-    $scope.search_name = '';
+    $scope.keyword = '';
     $scope.category_id = '';
 
-    // get category id
-    var category_id = localStorage.getItem('category_id');
-    if (category_id == null) category_id = '';
+    // get categorys
+    const urlGetCategoryList = '/Product/GetCategoryList'
+   
+
+    $scope.GetCategoryList = () => {
+        $http(
+            {
+                method: 'GET',
+                url: urlGetCategoryList,
+            }).then((res) => {
+                console.log(res.data);
+                $scope.listCategorys = res.data;
+            }, (err) => {
+                console.log(`Message: ${err}`);
+            })
+    }
+    $scope.GetCategoryList();
 
     // get products 
     const urlGetProductList = '/Product/GetProductList';
     $scope.GetProductList = (index) => {
+        const category_id = localStorage.getItem('category_id');
+        $scope.category_id = (category_id == null) ? '' : category_id
+
         $http(
         {
             method: 'GET',
             url: urlGetProductList,
             params: {
                 category_id: category_id, page_index: index,
-                page_size: $scope.page_size, product_name: $scope.search_name
+                page_size: $scope.page_size, product_name: $scope.keyword
             }
             }).then((res) => {
                 console.log(res.data);
@@ -123,8 +182,14 @@ function ProductController($rootScope, $scope, $http) {
     }
     $scope.GetProductList($scope.page_index);
 
+
     // save category_id
-    $scope.SelectCategory = (category) => localstorage.setItem('category_id', category.category_id);
+    $scope.SelectCategory = (category, event) => {
+        (event == 1) ? localStorage.setItem('category_id', category.category_id)
+            : localStorage.setItem('category_id', '');
+        $scope.GetProductList($scope.page_index);
+    };
+
 
     // go to product detail
     $scope.GoToDetail = (product) => localStorage.setItem('product_detail_id', product.product_id)
@@ -136,7 +201,6 @@ function DetailController($rootScope, $scope, $http) {
 
     const product_detail_id = localStorage.getItem('product_detail_id');
     const customer = JSON.parse(localStorage.getItem('customer')) ?? null;
-
 
     //handle change color, size, image
     angular.element(document).ready(function () {
@@ -200,7 +264,9 @@ function DetailController($rootScope, $scope, $http) {
             checkQuantity();
         }
 
-        $scope.addToCart = (product_id, product_name, price, image) => {
+        $scope.addToCart = (product_id, product_name, price, image, status) => {
+            //status =>  1:addToCart, 2: buynow
+
             if (customer) {
                 const cart = { cart_id: "", customer_id: customer.customer_id };
 
@@ -237,13 +303,18 @@ function DetailController($rootScope, $scope, $http) {
                     //})
                     //reload carts
                     $rootScope.GetCarts();
-                    $('.mini-cart-wrap').toggleClass('open');
-                    $('.mini-cart .overlay').toggleClass('show');
-
+                    if (status == 1) {
+                        $('.mini-cart-wrap').toggleClass('open');
+                        $('.mini-cart .overlay').toggleClass('show');
+                    } else {
+                        window.open('/Payment/Index', '_self');
+                    }
                     console.log(`Status: ${res.status}`);
                 }, err => {
                     console.log(`Message: ${err}`);
                 })
+
+
             } else {
                 window.open('/Customer/Login', '_self');
             }
@@ -317,21 +388,21 @@ function DetailController($rootScope, $scope, $http) {
             if ($(el).hasClass('selectSize')) size = el.innerText;
         })
 
-        if ($scope.colors[$scope.index].sizes) {
+        if ($scope.colors[$scope.index].sizes != null) {
             $scope.colors[$scope.index].sizes.forEach(el => {
-            if (el.size === size) {
-                if (el.quantity > 0) {
-                    $('.stock').removeClass('hide');
-                    $('.out-of-stock').addClass('hide');
-                    $('.limit-stock').addClass('hide');
-                } else {
-                    $('.product-detail-amount').val(1);
-                    $('.stock').addClass('hide');
-                    $('.out-of-stock').removeClass('hide');
-                    $('.limit-stock').addClass('hide');
+                if (el.size === size) {
+                    if (el.quantity > 0) {
+                        $('.stock').removeClass('hide');
+                        $('.out-of-stock').addClass('hide');
+                        $('.limit-stock').addClass('hide');
+                    } else {
+                        $('.product-detail-amount').val(1);
+                        $('.stock').addClass('hide');
+                        $('.out-of-stock').removeClass('hide');
+                        $('.limit-stock').addClass('hide');
+                    }
                 }
-            }
-        })
+            })
         }
 
     }
@@ -403,9 +474,7 @@ function CartController($rootScope, $scope, $http, $window) {
         })
     }
 
-    $scope.continueShopping = () => {
-        $window.history.back();
-    }
+    $scope.continueShopping = () => $window.history.back();
 
     function calcTotal() {
         let res = 0;
@@ -488,6 +557,141 @@ function CartController($rootScope, $scope, $http, $window) {
 
     // go to product detail
     $scope.GoToDetail = (product) => localStorage.setItem('product_detail_id', product.product_id)
+}
+
+function OrderController($rootScope, $scope, $http) {
+    const urlGetOrders = '/Order/GetOrders';
+    const customer = JSON.parse(localStorage.getItem('customer'));
+
+    $rootScope.GetOrders = () => {
+        $http({
+            method: 'GET',
+            url: urlGetOrders,
+            params: { customer_id: customer.customer_id }
+        }).then(res => {
+            $scope.orders = res.data.orders;
+            console.log($scope.orders)
+        });
+    }
+    $rootScope.GetOrders();
+}
+
+function PaymentController($rootScope, $scope, $http, $window) {
+    const customer = JSON.parse(localStorage.getItem('customer'));
+
+    $.ajaxSetup({
+        async: false
+    });
+
+    // Get all city of Viet Nam
+    $.getJSON(apiCity, function (data) {
+        $scope.listProvinces = data;
+    })
+
+    // select address
+    $scope.selectAddress = (type) => {
+        if (type === 0)
+            $scope.listProvinces.forEach(prov => {
+                if (prov.Id === $scope.selectedProvince) {
+                    $scope.listDistricts = prov.Districts;
+                    $scope.listCommunes = [];
+                    return;
+                }
+            })
+        else
+            $scope.listDistricts.forEach(dist => {
+                if (dist.Id === $scope.selectedDistrict) {
+                    $scope.listCommunes = dist.Wards;
+                    return;
+                }
+            })
+    }
+
+    //purchase
+    const urlAddOrder = '/Order/AddOrder';
+    const order = {
+        order_id: "",
+        customer_id: "",
+        address: "",
+        total: 0,
+        date_order: "",
+        status: 1
+    }
+
+    const urlClearCartDetail = '/Cart/ClearCart';
+    $scope.clearCartDetail = (id) => {
+        $http(
+            {
+                method: 'POST',
+                datatype: 'json',
+                url: urlClearCartDetail,
+                data: { cart_id: id }
+            }
+        ).then((res) => {
+            console.log(res.status);
+        }, (err) => {
+            console.log(`Messge: ${err}`);
+        })
+    }
+
+    $scope.confirmPurchase = (cart) => {
+        const cartId = cart.cart_id;
+        const date = new Date().toJSON().slice(0, 10);
+        order.customer_id = customer.customer_id;
+        order.date_order = date;
+
+        const province = $('#province').find(":selected").text().trim();
+        const district = $('#district').find(":selected").text().trim();
+        const commune = $('#commune').find(":selected").text().trim();
+        const specific_address = $('#specific_address').val().trim();
+        order.address = `${specific_address}, ${commune}, ${district}, ${province}`;
+
+        let total = 0;
+        const listCarts = cart.listCartDetail;
+        const orderDetails = [];
+       
+        listCarts.forEach(item => {
+            let orderDetail = {
+                order_detail_id: "",
+                order_id: "",
+                product_id: "",
+                product_name: "",
+                image: "",
+                color: "",
+                size: "",
+                quantity: 0,
+                price: 0
+            }
+
+            orderDetail.product_id = item.product_id;
+            orderDetail.product_name = item.product_name;
+            orderDetail.image = item.image;
+            orderDetail.color = item.color;
+            orderDetail.size = item.size;
+            orderDetail.quantity = item.quantity;
+            orderDetail.price = item.price;
+
+            total += item.quantity * item.price;
+            orderDetails.push(orderDetail);
+        })
+
+        console.log(orderDetails);
+        order.total = total;
+
+        $http({
+            method: 'POST',
+            url: urlAddOrder,
+            data: { order, orderDetails }
+        }).then(res => {
+            console.log(res.status);
+            $scope.clearCartDetail(cartId)
+
+            window.open("/Cart/Index", "_self");
+        }, err => console.log(`Message: ${err}`));
+    }
+
+
+
 }
 
 function LoginController($rootScope, $scope, $http) {

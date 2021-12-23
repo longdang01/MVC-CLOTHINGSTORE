@@ -70,11 +70,14 @@
                 <div style="margin: 3rem 0">
                     <button ng-click="
                             addToCart(product.product_id, product.product_name,
-                            product.price.price_current, colors[index].images[0]
+                            product.price.price_current, colors[index].images[0], 1
                             )"
                             class="btn btn-dark btn-add-to-cart">
                     Thêm vào giỏ hàng</button>
-                    <button class="btn btn-dark btn-buy-now">Mua ngay</button>
+                    <button class="btn btn-dark btn-buy-now" ng-click="
+                            addToCart(product.product_id, product.product_name,
+                            product.price.price_current, colors[index].images[0], 2
+                            )">Mua ngay</button>
                 </div>
             </div>
         </div>

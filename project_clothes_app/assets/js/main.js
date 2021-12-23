@@ -37,15 +37,7 @@ $('.hero-carousel').owlCarousel({
     dots: false
 })
 
-$('.product-carousel').owlCarousel({
-    loop: true,
-    margin: 20,
-    nav: true,
-    items: 4,
-    navText: ["<a href='javascript:void(0)' class='btn-slide'><i class='ti-angle-left'></i></a>",
-    "<a href='javascript:void(0)' class='btn-slide'><i class='ti-angle-right'></i></a>"],
-    dots: false
-})
+
 
 $('.journal-carousel').owlCarousel({
     loop: true,

@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace project_clothes_app.Areas.Admin.Controllers
 {
+    [Authorize]
     public class HomeAdminController : Controller
     {
         // GET: Admin/HomeAdmin

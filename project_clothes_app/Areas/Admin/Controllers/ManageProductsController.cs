@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace project_clothes_app.Areas.Admin.Controllers
 {
+    [Authorize]
     public class ManageProductsController : Controller
     {
         // GET: Admin/ProductAdmin

@@ -48,6 +48,11 @@ namespace project_clothes_dao
             cartDetail.size, cartDetail.price, cartDetail.quantity,
             cartDetail.date_add, cartDetail.status);
         }
+        public void ClearCart(string cart_id)
+        {
+            string query = $"delete TBL_cart_detail where cart_id = '{cart_id}'";
+            dh.ExecuteNonQuery(query);
+        }
         public List<CartDetail> ToList(DataTable dt)
         {
             List<CartDetail> list = new List<CartDetail>();

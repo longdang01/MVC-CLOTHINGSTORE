@@ -66,21 +66,31 @@
     <Compile Include="CategoryDAO.cs" />
     <Compile Include="CustomerInfoDAO.cs" />
     <Compile Include="DataHelper.cs" />
+    <Compile Include="DeliveryAddressDAO.cs" />
     <Compile Include="Interfaces\ICartDAO.cs" />
     <Compile Include="Interfaces\ICartDetailDAO.cs" />
     <Compile Include="Interfaces\ICategoryDAO.cs" />
     <Compile Include="Interfaces\ICustomerInfoDAO.cs" />
+    <Compile Include="Interfaces\IDeliveryAddressDAO.cs" />
+    <Compile Include="Interfaces\IOrderDAO.cs" />
+    <Compile Include="Interfaces\IOrderDetailDAO.cs" />
     <Compile Include="Interfaces\IProductColorDAO.cs" />
     <Compile Include="Interfaces\IProductSizeDAO.cs" />
     <Compile Include="Interfaces\IProductPriceDAO.cs" />
     <Compile Include="Interfaces\IProductDAO.cs" />
     <Compile Include="Interfaces\ICustomerDAO.cs" />
+    <Compile Include="Interfaces\IUserDAO.cs" />
+    <Compile Include="Interfaces\IUserInfoDAO.cs" />
+    <Compile Include="OrderDAO.cs" />
+    <Compile Include="OrderDetailDAO.cs" />
     <Compile Include="ProductColorDAO.cs" />
     <Compile Include="ProductDAO.cs" />
     <Compile Include="ProductPriceDAO.cs" />
     <Compile Include="ProductSizeDAO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CustomerDAO.cs" />
+    <Compile Include="UserDAO.cs" />
+    <Compile Include="UserInfoDAO.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\project_clothes_object\project_clothes_object.csproj">

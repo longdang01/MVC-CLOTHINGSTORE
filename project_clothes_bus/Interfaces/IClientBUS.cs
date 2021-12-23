@@ -20,8 +20,13 @@ namespace project_clothes_bus
         void UpdateQuantity(CartDetail cartDetail);
         void UpdateCartDetail(CartDetail cartDetail);
         void RemoveCartDetail(CartDetail cartDetail);
+        void ClearCart(string cart_id);
         List<CartDetail> GetCartDetails(string cart_id);
-
+        //Delivery address
+        DeliveryAddress GetDeliveryAddress(string customer_id);
+        void CreateDeliveryAddress(DeliveryAddress address);
+        void UpdateDeliveryAddress(DeliveryAddress address);
+        void DeleteDeliveryAddress(string delivery_address_id);
 
     }
 }

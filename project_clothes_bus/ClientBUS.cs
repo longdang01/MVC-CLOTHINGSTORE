@@ -14,7 +14,7 @@ namespace project_clothes_bus
         ICustomerInfoDAO customerInfoDAO = new CustomerInfoDAO();
         ICartDAO cartDAO = new CartDAO();
         ICartDetailDAO cartDetailDAO = new CartDetailDAO();
-
+        IDeliveryAddressDAO deliveryAddressDAO = new DeliveryAddressDAO();
         //Cart
         public Cart GetCart(string customer_id)
         {
@@ -73,6 +73,29 @@ namespace project_clothes_bus
         public void RemoveCartDetail(CartDetail cartDetail)
         {
             cartDetailDAO.RemoveCartDetail(cartDetail);
+        }
+        public void ClearCart(string cart_id)
+        {
+            cartDetailDAO.ClearCart(cart_id);
+        }
+
+        //Delivery address
+        public DeliveryAddress GetDeliveryAddress(string customer_id)
+        {
+            return deliveryAddressDAO.GetDeliveryAddress(customer_id);
+
+        }
+        public void CreateDeliveryAddress(DeliveryAddress address)
+        {
+            deliveryAddressDAO.CreateDeliveryAddress(address);
+        }
+        public void UpdateDeliveryAddress(DeliveryAddress address)
+        {
+            deliveryAddressDAO.UpdateDeliveryAddress(address);
+        }
+        public void DeleteDeliveryAddress(string delivery_address_id)
+        {
+            deliveryAddressDAO.DeleteDeliveryAddress(delivery_address_id);
         }
 
         //Acount

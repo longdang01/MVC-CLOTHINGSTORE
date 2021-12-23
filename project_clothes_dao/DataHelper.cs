@@ -69,6 +69,7 @@ namespace project_clothes_dao
                     cm.Parameters[i].Value = param[i - 1];
                 }
                 SqlDataReader dr = cm.ExecuteReader();
+                //Close();
                 return dr;
             }
             catch (Exception e)

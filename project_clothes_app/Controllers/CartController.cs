@@ -44,5 +44,10 @@ namespace project_clothes_app.Controllers
         {
             clientBUS.RemoveCartDetail(cartDetail);
         }
+        [HttpPost]
+        public void ClearCart(string cart_id)
+        {
+            clientBUS.ClearCart(cart_id);
+        }
     }
 }

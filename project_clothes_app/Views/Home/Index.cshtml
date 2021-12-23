@@ -89,10 +89,12 @@
 
                 <div>
                     <div class="product-carousel mt-2 owl-carousel">
-                        <div class="product-carousel-item position-relative item">
+                        <div ng-repeat="product in productNewArrival"
+                             class="product-carousel-item position-relative item">
                             <div class="product-img-wrap position-relative overflow-hidden">
-                                <a href="~/assets/html/detail_product.html" class="product-img">
-                                    <img class="product-carousel-img" src="~/assets/images/PR001_TOP_1.jpg" alt="">
+                                <a href="/ProductDetail/Index" ng-click="GoToDetail(product)" class="product-img">
+                                    <img class="product-carousel-img"
+                                         ng-src="../{{ product.list_color[0].avatar }}" alt="">
                                     <div class="overlay"></div>
                                 </a>
 
@@ -102,89 +104,16 @@
                                     <li><a href="#"><i class="ti-heart"></i></a></li>
                                 </ul>
                             </div>
-                            <div class="product-info">
-                                <a href="#" class="product-name d-block mb-1 fw-bold">HADES BASIC WASHED TEE</a>
-                                <span class="product-price">280,000đ</span>
-                            </div>
-                        </div>
 
-                        <div class="product-carousel-item position-relative item">
-                            <div class="product-img-wrap position-relative overflow-hidden">
-                                <a href="#" class="product-img">
-                                    <img class="product-carousel-img" src="~/assets/images/PR001_TOP_1.jpg" alt="">
-                                    <div class="overlay"></div>
+                            <div class="product-info">
+                                <a href="#" class="product-name d-block mb-1 fw-bold">
+                                    {{ product.product_name }}
                                 </a>
-
-                                <ul class="product-options d-flex align-items-center">
-                                    <li><a href="#"><i class="ti-shopping-cart"></i></a></li>
-                                    <li><a href="#"><i class="ti-zoom-in"></i></a></li>
-                                    <li><a href="#"><i class="ti-heart"></i></a></li>
-                                </ul>
-                            </div>
-                            <div class="product-info">
-                                <a href="#" class="product-name d-block mb-1 fw-bold">HADES BASIC WASHED TEE</a>
-                                <span class="product-price">280,000đ</span>
+                                <span class="product-price">{{ product.price.price_current | currency:"":0}}đđ</span>
                             </div>
                         </div>
-
-                        <div class="product-carousel-item position-relative item">
-                            <div class="product-img-wrap position-relative overflow-hidden">
-                                <a href="#" class="product-img">
-                                    <img class="product-carousel-img" src="~/assets/images/PR001_TOP_1.jpg" alt="">
-                                    <div class="overlay"></div>
-                                </a>
-
-                                <ul class="product-options d-flex align-items-center">
-                                    <li><a href="#"><i class="ti-shopping-cart"></i></a></li>
-                                    <li><a href="#"><i class="ti-zoom-in"></i></a></li>
-                                    <li><a href="#"><i class="ti-heart"></i></a></li>
-                                </ul>
-                            </div>
-                            <div class="product-info">
-                                <a href="#" class="product-name d-block mb-1 fw-bold">HADES BASIC WASHED TEE</a>
-                                <span class="product-price">280,000đ</span>
-                            </div>
-                        </div>
-
-                        <div class="product-carousel-item position-relative item">
-                            <div class="product-img-wrap position-relative overflow-hidden">
-                                <a href="#" class="product-img">
-                                    <img class="product-carousel-img" src="~/assets/images/PR001_TOP_1.jpg" alt="">
-                                    <div class="overlay"></div>
-                                </a>
-
-                                <ul class="product-options d-flex align-items-center">
-                                    <li><a href="#"><i class="ti-shopping-cart"></i></a></li>
-                                    <li><a href="#"><i class="ti-zoom-in"></i></a></li>
-                                    <li><a href="#"><i class="ti-heart"></i></a></li>
-                                </ul>
-                            </div>
-                            <div class="product-info">
-                                <a href="#" class="product-name d-block mb-1 fw-bold">HADES BASIC WASHED TEE</a>
-                                <span class="product-price">280,000đ</span>
-                            </div>
-                        </div>
-
-                        <div class="product-carousel-item position-relative item">
-                            <div class="product-img-wrap position-relative overflow-hidden">
-                                <a href="#" class="product-img">
-                                    <img class="product-carousel-img" src="~/assets/images/PR001_TOP_1.jpg" alt="">
-                                    <div class="overlay"></div>
-                                </a>
-
-                                <ul class="product-options d-flex align-items-center">
-                                    <li><a href="#"><i class="ti-shopping-cart"></i></a></li>
-                                    <li><a href="#"><i class="ti-zoom-in"></i></a></li>
-                                    <li><a href="#"><i class="ti-heart"></i></a></li>
-                                </ul>
-                            </div>
-                            <div class="product-info">
-                                <a href="#" class="product-name d-block mb-1 fw-bold">HADES BASIC WASHED TEE</a>
-                                <span class="product-price">280,000đ</span>
-                            </div>
-                        </div>
-
                     </div>
+             
                 </div>
 
             </div>
@@ -240,10 +169,12 @@
 
                 <div>
                     <div class="product-carousel mt-2 owl-carousel">
-                        <div class="product-carousel-item position-relative item">
+                        <div ng-repeat="product in productHot"
+                             class="product-carousel-item position-relative item">
                             <div class="product-img-wrap position-relative overflow-hidden">
-                                <a href="#" class="product-img">
-                                    <img class="product-carousel-img" src="~/assets/images/PR001_TOP_1.jpg" alt="">
+                                <a href="/ProductDetail/Index" ng-click="GoToDetail(product)" class="product-img">
+                                    <img class="product-carousel-img"
+                                         ng-src="../{{ product.list_color[0].avatar }}" alt="">
                                     <div class="overlay"></div>
                                 </a>
 
@@ -253,88 +184,14 @@
                                     <li><a href="#"><i class="ti-heart"></i></a></li>
                                 </ul>
                             </div>
-                            <div class="product-info">
-                                <a href="#" class="product-name d-block mb-1 fw-bold">HADES BASIC WASHED TEE</a>
-                                <span class="product-price">280,000đ</span>
-                            </div>
-                        </div>
 
-                        <div class="product-carousel-item position-relative item">
-                            <div class="product-img-wrap position-relative overflow-hidden">
-                                <a href="#" class="product-img">
-                                    <img class="product-carousel-img" src="~/assets/images/PR001_TOP_1.jpg" alt="">
-                                    <div class="overlay"></div>
+                            <div class="product-info">
+                                <a href="#" class="product-name d-block mb-1 fw-bold">
+                                    {{ product.product_name }}
                                 </a>
-
-                                <ul class="product-options d-flex align-items-center">
-                                    <li><a href="#"><i class="ti-shopping-cart"></i></a></li>
-                                    <li><a href="#"><i class="ti-zoom-in"></i></a></li>
-                                    <li><a href="#"><i class="ti-heart"></i></a></li>
-                                </ul>
-                            </div>
-                            <div class="product-info">
-                                <a href="#" class="product-name d-block mb-1 fw-bold">HADES BASIC WASHED TEE</a>
-                                <span class="product-price">280,000đ</span>
+                                <span class="product-price">{{ product.price.price_current | currency:"":0}}đđ</span>
                             </div>
                         </div>
-
-                        <div class="product-carousel-item position-relative item">
-                            <div class="product-img-wrap position-relative overflow-hidden">
-                                <a href="#" class="product-img">
-                                    <img class="product-carousel-img" src="~/assets/images/PR001_TOP_1.jpg" alt="">
-                                    <div class="overlay"></div>
-                                </a>
-
-                                <ul class="product-options d-flex align-items-center">
-                                    <li><a href="#"><i class="ti-shopping-cart"></i></a></li>
-                                    <li><a href="#"><i class="ti-zoom-in"></i></a></li>
-                                    <li><a href="#"><i class="ti-heart"></i></a></li>
-                                </ul>
-                            </div>
-                            <div class="product-info">
-                                <a href="#" class="product-name d-block mb-1 fw-bold">HADES BASIC WASHED TEE</a>
-                                <span class="product-price">280,000đ</span>
-                            </div>
-                        </div>
-
-                        <div class="product-carousel-item position-relative item">
-                            <div class="product-img-wrap position-relative overflow-hidden">
-                                <a href="#" class="product-img">
-                                    <img class="product-carousel-img" src="~/assets/images/PR001_TOP_1.jpg" alt="">
-                                    <div class="overlay"></div>
-                                </a>
-
-                                <ul class="product-options d-flex align-items-center">
-                                    <li><a href="#"><i class="ti-shopping-cart"></i></a></li>
-                                    <li><a href="#"><i class="ti-zoom-in"></i></a></li>
-                                    <li><a href="#"><i class="ti-heart"></i></a></li>
-                                </ul>
-                            </div>
-                            <div class="product-info">
-                                <a href="#" class="product-name d-block mb-1 fw-bold">HADES BASIC WASHED TEE</a>
-                                <span class="product-price">280,000đ</span>
-                            </div>
-                        </div>
-
-                        <div class="product-carousel-item position-relative item">
-                            <div class="product-img-wrap position-relative overflow-hidden">
-                                <a href="#" class="product-img">
-                                    <img class="product-carousel-img" src="~/assets/images/PR001_TOP_1.jpg" alt="">
-                                    <div class="overlay"></div>
-                                </a>
-
-                                <ul class="product-options d-flex align-items-center">
-                                    <li><a href="#"><i class="ti-shopping-cart"></i></a></li>
-                                    <li><a href="#"><i class="ti-zoom-in"></i></a></li>
-                                    <li><a href="#"><i class="ti-heart"></i></a></li>
-                                </ul>
-                            </div>
-                            <div class="product-info">
-                                <a href="#" class="product-name d-block mb-1 fw-bold">HADES BASIC WASHED TEE</a>
-                                <span class="product-price">280,000đ</span>
-                            </div>
-                        </div>
-
                     </div>
                 </div>
 
@@ -355,10 +212,12 @@
 
                 <div>
                     <div class="product-carousel mt-2 owl-carousel">
-                        <div class="product-carousel-item position-relative item">
+                        <div ng-repeat="product in productBestSeller"
+                             class="product-carousel-item position-relative item">
                             <div class="product-img-wrap position-relative overflow-hidden">
-                                <a href="#" class="product-img">
-                                    <img class="product-carousel-img" src="~/assets/images/PR001_TOP_1.jpg" alt="">
+                                <a href="/ProductDetail/Index" ng-click="GoToDetail(product)" class="product-img">
+                                    <img class="product-carousel-img"
+                                         ng-src="../{{ product.list_color[0].avatar }}" alt="">
                                     <div class="overlay"></div>
                                 </a>
 
@@ -368,88 +227,14 @@
                                     <li><a href="#"><i class="ti-heart"></i></a></li>
                                 </ul>
                             </div>
-                            <div class="product-info">
-                                <a href="#" class="product-name d-block mb-1 fw-bold">HADES BASIC WASHED TEE</a>
-                                <span class="product-price">280,000đ</span>
-                            </div>
-                        </div>
 
-                        <div class="product-carousel-item position-relative item">
-                            <div class="product-img-wrap position-relative overflow-hidden">
-                                <a href="#" class="product-img">
-                                    <img class="product-carousel-img" src="~/assets/images/PR001_TOP_1.jpg" alt="">
-                                    <div class="overlay"></div>
+                            <div class="product-info">
+                                <a href="#" class="product-name d-block mb-1 fw-bold">
+                                    {{ product.product_name }}
                                 </a>
-
-                                <ul class="product-options d-flex align-items-center">
-                                    <li><a href="#"><i class="ti-shopping-cart"></i></a></li>
-                                    <li><a href="#"><i class="ti-zoom-in"></i></a></li>
-                                    <li><a href="#"><i class="ti-heart"></i></a></li>
-                                </ul>
-                            </div>
-                            <div class="product-info">
-                                <a href="#" class="product-name d-block mb-1 fw-bold">HADES BASIC WASHED TEE</a>
-                                <span class="product-price">280,000đ</span>
+                                <span class="product-price">{{ product.price.price_current | currency:"":0}}đđ</span>
                             </div>
                         </div>
-
-                        <div class="product-carousel-item position-relative item">
-                            <div class="product-img-wrap position-relative overflow-hidden">
-                                <a href="#" class="product-img">
-                                    <img class="product-carousel-img" src="~/assets/images/PR001_TOP_1.jpg" alt="">
-                                    <div class="overlay"></div>
-                                </a>
-
-                                <ul class="product-options d-flex align-items-center">
-                                    <li><a href="#"><i class="ti-shopping-cart"></i></a></li>
-                                    <li><a href="#"><i class="ti-zoom-in"></i></a></li>
-                                    <li><a href="#"><i class="ti-heart"></i></a></li>
-                                </ul>
-                            </div>
-                            <div class="product-info">
-                                <a href="#" class="product-name d-block mb-1 fw-bold">HADES BASIC WASHED TEE</a>
-                                <span class="product-price">280,000đ</span>
-                            </div>
-                        </div>
-
-                        <div class="product-carousel-item position-relative item">
-                            <div class="product-img-wrap position-relative overflow-hidden">
-                                <a href="#" class="product-img">
-                                    <img class="product-carousel-img" src="~/assets/images/PR001_TOP_1.jpg" alt="">
-                                    <div class="overlay"></div>
-                                </a>
-
-                                <ul class="product-options d-flex align-items-center">
-                                    <li><a href="#"><i class="ti-shopping-cart"></i></a></li>
-                                    <li><a href="#"><i class="ti-zoom-in"></i></a></li>
-                                    <li><a href="#"><i class="ti-heart"></i></a></li>
-                                </ul>
-                            </div>
-                            <div class="product-info">
-                                <a href="#" class="product-name d-block mb-1 fw-bold">HADES BASIC WASHED TEE</a>
-                                <span class="product-price">280,000đ</span>
-                            </div>
-                        </div>
-
-                        <div class="product-carousel-item position-relative item">
-                            <div class="product-img-wrap position-relative overflow-hidden">
-                                <a href="#" class="product-img">
-                                    <img class="product-carousel-img" src="~/assets/images/PR001_TOP_1.jpg" alt="">
-                                    <div class="overlay"></div>
-                                </a>
-
-                                <ul class="product-options d-flex align-items-center">
-                                    <li><a href="#"><i class="ti-shopping-cart"></i></a></li>
-                                    <li><a href="#"><i class="ti-zoom-in"></i></a></li>
-                                    <li><a href="#"><i class="ti-heart"></i></a></li>
-                                </ul>
-                            </div>
-                            <div class="product-info">
-                                <a href="#" class="product-name d-block mb-1 fw-bold">HADES BASIC WASHED TEE</a>
-                                <span class="product-price">280,000đ</span>
-                            </div>
-                        </div>
-
                     </div>
                 </div>
 

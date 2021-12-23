@@ -15,7 +15,7 @@
                     </div>
                     <a href="/Product/Index"
                        @*ng-click="continueShopping()"*@
-                       style="" 
+                       style=""
                        class="d-flex align-items-center h-100">
                         <i class="ti-arrow-left me-2"></i>
                         <span>Continue Shopping</span>
@@ -39,12 +39,12 @@
                                         </div>
                                         <div class="col-md-6 ps-0">
                                             <div class="d-flex flex-column justify-content-between">
-                                                <h3 class="product-name fw-bold text-uppercase fs-4">
+                                                <h3 class="product-name fw-bold text-uppercase">
                                                     <a href="/ProductDetail/Index" ng-click="GoToDetail(product)">
                                                         {{ product.product_name }}
                                                     </a>
                                                 </h3>
-                                                <div style="color: grey;" class="fs-4">
+                                                <div style="color: grey; font-size: 1.4rem">
                                                     <span>{{ product.color }}</span>
                                                     <span>/</span>
                                                     <span>{{ product.size }}</span>
@@ -53,17 +53,17 @@
                                         </div>
                                         <div class="col-md-2">
                                             <div class="d-flex justify-content-center align-items-center amount">
-                                                <input type="text" 
+                                                <input type="text"
                                                        ng-click="updateCart($index, product, 2)"
                                                        class="product-amount-sub" value="-" readonly>
                                                 <input type="text" class="product-detail-amount" value="{{ product.quantity }}" readonly>
-                                                <input type="text" 
+                                                <input type="text"
                                                        ng-click="updateCart($index, product, 1)"
                                                        class="product-amount-plus" value="+" readonly>
                                             </div>
                                         </div>
                                         <div class="col-md-2 text-center">
-                                            <span style="color: #767676;" class="product-price">{{ product.price | currency: "" : 0 }}đ</span>
+                                            <span style="color: #767676; font-size: 1.4rem" class="product-price">{{ product.price | currency: "" : 0 }}đ</span>
                                         </div>
                                     </div>
                                 </div>
@@ -71,7 +71,7 @@
                                     <div class="row">
                                         <div class="col-md-10">
                                             <span>Thành tiền: </span>
-                                            <span class="fw-bold">{{ product.price * product.quantity | currency: "" : 0 }}đ</span>
+                                            <span class="fw-bold" style="font-size: 1.4rem">{{ product.price * product.quantity | currency: "" : 0 }}đ</span>
                                         </div>
                                         <div class="col-md-2 text-start">
                                             <a href="#" class="fs-3" ng-click="removeCartDetail(product)"><i class="ti-trash"></i></a>
@@ -99,7 +99,7 @@
                             <span class="product-total fw-bold">{{ total | currency: "" : 0 }}đ</span>
                         </div>
                     </div>
-                    <button class="btn btn-dark w-100">Thanh toán</button>
+                    <a href="/Payment/Index" class="btn btn-dark w-100" >Thanh toán</a>
                 </div>
             </div>
         </div>

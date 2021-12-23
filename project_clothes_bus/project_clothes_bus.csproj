@@ -41,11 +41,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdministrationBUS.cs" />
     <Compile Include="CategoryBUS.cs" />
     <Compile Include="ClientBUS.cs" />
+    <Compile Include="Interfaces\IAdministrationBUS.cs" />
     <Compile Include="Interfaces\ICategoryBUS.cs" />
     <Compile Include="Interfaces\IClientBUS.cs" />
+    <Compile Include="Interfaces\IManageOrderBUS.cs" />
     <Compile Include="Interfaces\IProductBUS.cs" />
+    <Compile Include="ManageOrderBUS.cs" />
     <Compile Include="ProductBUS.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

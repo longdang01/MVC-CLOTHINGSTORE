@@ -11,6 +11,8 @@ namespace project_clothes_app.Controllers
     public class ProductController : Controller
     {
         public ProductBUS productBUS = new ProductBUS();
+        public CategoryBUS categoryBUS = new CategoryBUS();
+
         // GET: Shop
         public ActionResult Index()
         {
@@ -22,6 +24,13 @@ namespace project_clothes_app.Controllers
             ProductList pl = productBUS.GetProductList(category_id, page_index, page_size, product_name);
 
             return Json(pl, JsonRequestBehavior.AllowGet);
+        }
+        [HttpGet]
+        public JsonResult GetCategoryList()
+        {
+            List<Category> cates = categoryBUS.GetCategoryList();
+
+            return Json(cates, JsonRequestBehavior.AllowGet);
         }
         public JsonResult GetNewArrival(int rows)
         {

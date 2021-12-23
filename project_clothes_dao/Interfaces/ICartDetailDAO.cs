@@ -14,6 +14,8 @@ namespace project_clothes_dao
         void UpdateCartDetail(CartDetail cartDetail);
         void UpdateQuantity(CartDetail cartDetail);
         void RemoveCartDetail(CartDetail cartDetail);
+        void ClearCart(string cart_id);
+
 
 
     }

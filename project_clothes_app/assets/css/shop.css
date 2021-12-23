@@ -4,7 +4,12 @@
     min-height: 100vh;
 }
 
-.shop-breadcrumb {
+.breadcrumb {
+    font-size: 1.4rem
+}
+
+.shop-breadcrumb,
+.payment-breadcrumb {
     background: #2c2c2c;
     color: #6c757d;
     height: 40px;
@@ -15,7 +20,8 @@
     padding: 0 8rem;
 }
 
-.shop-breadcrumb nav {
+.shop-breadcrumb nav,
+.payment-breadcrumb nav{
     height: 40px;
 }
 
@@ -352,6 +358,21 @@ li:nth-child(1).product-detail-size {
 	border-top: 22px solid transparent;
 	border-left: 22px solid black;
 	border-bottom: 22px solid transparent;
+}
+
+.btn-filter-category {
+    display: block;
+    font-size: 1.4rem;
+    font-weight: 550;
+    margin-bottom: 1rem;
+    width: 100%;
+    padding: 1rem;
+    background: #e2e2e2;
+
+}
+
+.btn-filter-category:hover {
+    color: black;
 }
 
 .product-related .product-carousel-img {

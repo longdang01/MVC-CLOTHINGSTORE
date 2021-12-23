@@ -4,6 +4,8 @@ var app = angular.module('AdminApp', ['angularUtils.directives.dirPagination', '
 
 app.controller('ManageProductsController', ManageProducts)
 
+app.controller('LoginController', LoginController);
+
 function ManageProducts($rootScope, $scope, $http, Upload, $timeout, $document) {
     const urlGetCategoryList = '/Admin/ManageProducts/GetCategoryList';
     const urlGetProductList = '/Admin/ManageProducts/GetProductList';
@@ -210,6 +212,53 @@ function ManageProducts($rootScope, $scope, $http, Upload, $timeout, $document) 
         }
     }
 }
+
+function LoginController($rootScope, $scope, $http, $window) {
+    const urlGetUser = '/Admin/Administration/GetUser';
+    $scope.close = "";
+    $rootScope.remember = false;
+
+    $scope.login = 0;
+
+    const urlSignOut = '/Admin/Administration/SignOut'
+    $scope.signOut = () => {
+        $http(
+            {
+                method: 'POST',
+                url: urlSignOut
+            }
+        ).then((res) => {
+            $window.location.href = '/Admin/Administration/LoginAdmin';
+
+            console.log("Signout success")
+        }, (err) => {
+            console.log(`Message: ${err}`);
+        })
+    }
+
+    $scope.Login = (username, password) => {
+        console.log(username, password);
+
+        $http(
+            {
+                method: 'GET',
+                url: urlGetUser,
+                params: { username, password }
+            }
+        ).then((res) => {
+            console.log("Login success")
+            $scope.user = res.data
+            setTimeout(() => {
+                $window.location.href= '/Admin/HomeAdmin/Index';
+            }, 500)
+        }, (err) => {
+            console.log(`Message: ${err}`);
+        })
+    }
+}
+
+
+
 
 // Create id random format 
 function generateCodeRandom(prefix, listItem, fieldCheck, l) {
