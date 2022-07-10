@@ -449,3 +449,6 @@ li:nth-child(1).product-detail-size {
     border: 2px solid black
 }
 
+.btn-shop-now-second::after {
+    display: none;
+}

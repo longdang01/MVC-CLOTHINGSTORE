@@ -42,7 +42,7 @@
 
 .mini-cart-wrap {
     position: fixed;
-    /*display: none;*/
+    /*display: none !important;*/
     top: 0;
     right: 0;
     height: 100vh;
@@ -50,13 +50,14 @@
     width: 38%;
     padding: 3rem 4rem;
     z-index: 999999;
-    transform: translateX(500px);
+    transform: translateX(1500px);
     transition: transform .5s ease-in-out;
     box-shadow: 0 0 5px rgba(0, 0, 0, .2);
 }
 
 .open {
     transform: translateX(0);
+    /*display: block !important;*/
 }
 
 .show {

@@ -49,9 +49,11 @@ function SlideController($rootScope, $scope, $http) {
                 "<a href='javascript:void(0)' class='btn-slide'><i class='ti-angle-right'></i></a>"],
             dots: false
         });
+        $('window').resize();
     };
 
-    setTimeout(setupSlider, 500);
+    //setTimeout(setupSlider, 500);
+
     //numbers of item in slide product
     const rows = 4;
 
@@ -62,8 +64,10 @@ function SlideController($rootScope, $scope, $http) {
         params: { rows }
     }
     ).then(res => {
+        //setTimeout(setupSlider, 500);
         console.log(res.data);
         $scope.productNewArrival = res.data;
+
     }, err => {
         console.log(`Message: ${err}`);
     })
@@ -75,6 +79,7 @@ function SlideController($rootScope, $scope, $http) {
         params: { rows }
     }
     ).then(res => {
+        //setTimeout(setupSlider, 500);
         console.log(res.data);
         $scope.productHot = res.data;
     }, err => {
@@ -88,6 +93,7 @@ function SlideController($rootScope, $scope, $http) {
         params: { rows }
     }
     ).then(res => {
+        //setTimeout(setupSlider, 500);
         console.log(res.data);
         $scope.productBestSeller = res.data;
     }, err => {
@@ -102,6 +108,7 @@ function SlideController($rootScope, $scope, $http) {
     }
     ).then(res => {
         console.log(res.data);
+        setTimeout(setupSlider, 500);
         $scope.productSale = res.data;
     }, err => {
         console.log(`Message: ${err}`);

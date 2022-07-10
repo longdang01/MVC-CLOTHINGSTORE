@@ -39,7 +39,7 @@
 
                 <div class="hero-options col-7">
                     <div class="hero-search d-flex align-items-center">
-                        <div class="hero-search-type position-relative">
+                        @*<div style="display: none" class="hero-search-type position-relative">
                             <a href="#" style="height: 40px;" class="d-flex align-items-center
                                     justify-content-between px-3">
                                 <span class="label-search-type-list">Tất cả sản phẩm</span><i class="ti-angle-right"></i>
@@ -52,20 +52,27 @@
                         </div>
                         <input type="text" class="flex-grow-1 txt-hero-search"
                                placeholder="Tìm kiếm sản phẩm ...">
-                        <button class="hero-search-btn"><i class="ti-search"></i></button>
+                        <button class="hero-search-btn"><i class="ti-search"></i></button>*@
+                        <div style="width: 100%; height: 40px">
+                            <a href="/Product/Index" style="display: block; width: 100%" 
+                               class="btn btn-dark btn-shop-now btn-shop-now-second d-flex align-items-center">
+                                <span class="me-2">Shop now</span>
+                                <i class="ti-arrow-top-right"></i>
+                            </a>
+                        </div>
                     </div>
                     <div class="hero-slide position-relative">
                         <div class="hero-carousel mt-2 owl-carousel">
                             <div class="hero-carousel-item position-relative item">
-                                <img class="hero-carousel-img" src="~/assets/images/SLIDE_002.jpg" alt="">
+                                <img style="height: 100%" class="hero-carousel-img" src="~/assets/images/SLIDE_002.jpg" alt="">
                             </div>
 
                             <div class="hero-carousel-item position-relative item">
-                                <img class="hero-carousel-img" src="~/assets/images/SLIDE_001.jpg" alt="">
+                                <img style="height: 100%" class="hero-carousel-img" src="~/assets/images/SLIDE_001.jpg" alt="">
                             </div>
 
                             <div class="hero-carousel-item position-relative item">
-                                <img class="hero-carousel-img" src="~/assets/images/SLIDE_003.jpg" alt="">
+                                <img style="height: 100%" class="hero-carousel-img" src="~/assets/images/SLIDE_003.jpg" alt="">
                             </div>
                         </div>
 
@@ -74,6 +81,7 @@
             </div>
         </div>
     </div>
+
     <div ng-controller="SlideController">
         <div id="arrival" style="background: #fff;">
             <div class="container">
@@ -254,7 +262,7 @@
                 </div>
 
                 <div>
-                    <div class="product-carousel mt-2 owl-carousel">
+                    @*<div class="product-carousel mt-2 owl-carousel">
                         <div class="product-carousel-item position-relative item">
                             <div class="product-img-wrap position-relative overflow-hidden">
                                 <a href="#" class="product-img">
@@ -350,7 +358,7 @@
                             </div>
                         </div>
 
-                    </div>
+                    </div>*@
                 </div>
 
             </div>
